@@ -152,6 +152,10 @@ summary(encuesta)
 
 
 ## HASTA AQUÍ VA LA DEPURACIÓN
+```{r}
+print("prueba")
+```
+
 
 
 
