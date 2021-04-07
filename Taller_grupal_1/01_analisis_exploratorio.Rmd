@@ -139,6 +139,26 @@ edad <- as.numeric(as.Date("2021-06-30") - encuesta$Q02_FechaNac)/365.25
 
 
 
+#### 7. Etiquetamos las variables Q24_area y Q26_Divisor como "Correcto/Incorrecto."
+```{r}
+## Creamos la variable area que contiene la variable Q24_area etiquetada como "Correcto/Incorrecto"  
+area <- encuesta$Q24_area
+area = factor(area, 
+              levels = levels(area),
+              labels = c("Incorrecto","Incorrecto","Incorrecto","Correcto","Incorrecto","Incorrecto"),
+              ordered = F)
+
+```
+```{r}
+## Creamos la variable divisor que contiene la variable Q26_Divisor etiquetada como "Correcto/Incorrecto".
+divisor = if_else(encuesta$Q26_Divisor..f.es.divisor.de.g.2.==1 & encuesta$Q26_Divisor..f.es.divisor.de.gh.==1 & encuesta$Q26_Divisor..f.es.divisor.de.h.g==1, "Correcto", "Incorrecto")
+divisor
+
+```
+
+```
+
+
 #### Visualicemos nuevamente nuestros datos y su estructura después de la depuración.
 
 ```{r}
