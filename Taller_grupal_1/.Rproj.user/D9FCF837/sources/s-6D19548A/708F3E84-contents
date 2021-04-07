@@ -2,7 +2,7 @@
 title: "Análisis exploratorio de la encuesta inicial"
 author: "Kenneth Roy Cabrera Torres"
 date: "Viernes, 26 de marzo de 2021"
-modification: "Jhon Jairo Serna Córdoba"
+modification: "Jhon Jairo Serna Córdoba, Laura Flórez"
 output: 
   html_document: 
     toc: yes

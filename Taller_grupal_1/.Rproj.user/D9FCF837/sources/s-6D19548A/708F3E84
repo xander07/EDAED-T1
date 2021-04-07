@@ -3,7 +3,7 @@
     "path": "~/GitHub/EDAED-T1/Taller_grupal_1/01_analisis_exploratorio.Rmd",
     "project_path": "01_analisis_exploratorio.Rmd",
     "type": "r_markdown",
-    "hash": "2481509072",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1617762472262.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "154,0",
-        "scrollLine": "145"
+        "cursorPosition": "4,54",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1617762623,
+    "lastKnownWriteTime": 1617764540,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1617762623573,
+    "last_content_update": 1617764540,
     "read_only": false,
     "read_only_alternatives": []
 }
