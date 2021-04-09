@@ -9,9 +9,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,
-                      warning = FALSE,
-                      message = FALSE)
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE)
 ```
 
 ## Librerías y lectura de la BD
@@ -24,7 +25,7 @@ library(tidyverse)
 ```{r}
 ## Lectura de una base de datos tipo ".csv"
 encuesta <- read.csv("encuesta1.csv")
-
+barplot(encuesta$Q08_PAPA)
 ```
 
 
@@ -51,12 +52,9 @@ glimpse(encuesta)
 summary(encuesta)
 ```
 
-Visualizar la base de datos antes de iniciar a trabajar sobre ella es necesario. Primero ayudan a identificar si los datos sobre los cuales se va a trabajar son totalemente correctos.Y segundo, si presentan algún tipo de anomalía. Esto con el propósito de saber si los datos están listos para empezar a trabajar con ellos o se debe hacer algún proceso de depuración antes de, que permita posteriormente el análisis exploratorio. 
+Visualizar la base de datos antes de iniciar a trabajar sobre ella es necesario. Primero ayudan a identificar si los datos sobre los cuales se va a trabajar son totalmente correctos.Y segundo, si presentan algún tipo de anomalía. Esto con el propósito de saber si los datos están listos para empezar a trabajar sobre ellos o se debe hacer algún proceso de depuración antes de, que permita posteriormente el análisis exploratorio. 
 
-En este punto, luego de observar detenidamente la base de datos, se puede notar que, los datos aún no están  totalmente listos para trabajar sobre ellos.Por tanto, se hace necesario realizar un proceso de depuración, que será descrito a continuanción, veamos.  
-
-
-
+En este punto, luego de observar detenidamente la base de datos, se puede notar que, los datos aún no están  totalmente listos.Por tanto, se hace necesario realizar un proceso de depuración, que será descrito a continuación, veamos.  
 
 ## Depuración de los datos
 
@@ -155,10 +153,6 @@ divisor = if_else(encuesta$Q26_Divisor..f.es.divisor.de.g.2.==1 & encuesta$Q26_D
 divisor
 
 ```
-
-```
-
-
 #### Visualicemos nuevamente nuestros datos y su estructura después de la depuración.
 
 ```{r}
@@ -278,7 +272,8 @@ arrows(promedioEdad -  desv_Est_Edad / sqrt(nrow(encuesta)), 1,
 with(encuesta, plot(Q10_Estrato, Q08_PAPA, notch = TRUE))
 ```
 
-¿Que estrato tienen mejor PAPA?
+¿Qué estrato tienen mejor PAPA?
+
 El supuesto que se tiene a la hora de plantear esta pregunta, es que los estudiantes que pertenencen a un estrato mas alto son quienes tienen mejor PAPA, esto debido a que, han tenido más posibilidades de acceder a mejores recursos, tanto económicos como académicos.
 
 
@@ -414,7 +409,7 @@ que se esperaba. Esto indica que posiblemente hayan otros factores que
 puedan estar asociado al desempeño académico y no solo el hecho de
 estar al día con la clase en cuanto a la instalación del software. 
 
-Se puede concluir que aunque no haya diferencia significativa entre los
+Se puede concluir que, aunque no haya diferencia significativa entre los
 grupos si hay una tendencia a tener mejor desempeño en el el PAPA los
 estudiantes de estadístca que tienen instalado solo el R, mientras que
 los que no lo han instalado los programas el desempeño académico tiene
@@ -422,6 +417,26 @@ a se más bajo sin que haya diferencia significativa.
 
 
 
+Solución a las preguntas de Karina:
 
+Pregunta bivariada 
+
+¿La cantidad de recursos tecnológicos que poseen los estudiantes del curso de estadística descriptiva y exploratoria depende de su estrato socioeconómico?
+
+La hipótesis que se plantea a esta pregunta es que sí, el hecho de que una persona pertenezca a un estrato mas alto, nos indica que, económicamente, estos poseen mayores y mejores recursos, y esto les permite adquirir muchas mas herramientas tecnológicas. Contrario a lo que pasaría con un estrato mas bajo, pues sus recursos económicos son mas limitados, y esto imposibilita que accedan a las distintas tecnologías 
+
+
+```{r}
+barplot(encuesta$Q08_PAPA)
+```
+Pregunta multivariada
+
+¿El puntaje alto en las pruebas saber y el papa de los estudiantes del curso de estadística descriptiva y exploratoria dependen de su estrato socioeconómico?
+
+En el grupo después de discutir esta pregunta, se llegó a la conclusión, que nada tiene que ver el hecho de pertenecer a determinado estrato con el puntaje de las pruebas saber 11 y el PAPA, pues se ha visto en muchas ocasiones como en los estratos bajos y altos hay gente con muy buenos resultados académicos. 
+
+```{r}
+
+```
 
 

@@ -1,0 +1,235 @@
+---
+title: "Estrategias financerias de Colombia y Slovenia para enfrentar crisis por Covid-19"
+author: "Karina Jimenéz Cardona"
+date: "04/03/2021"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Durante la crisis por el coronavirus, declarada oficialmente por la Organización Mundial de
+la Salud (OMS) como pandemia el 11 de marzo de 2020, se ha presentado un incremento
+amplio de personas afectadas en el mundo. Todos los países se han visto perjudicados, entre
+ellos, se destaca a Colombia y Slovenía.
+
+Para el primero, ubicado al extremo del norte de Sudamérica, tiene una población total de
+51.681.905, el número de casos confirmados es de 2.262.646; casos activos 34.890; los
+recuperados son 2.160.555 y los fallecidos 60.082 hasta el 4 de marzo de 2021(Instituto
+Nacional de Salud, 2021). Para el segundo, situado al sur de Europa, cuenta con una
+población total de 2.095.861 de personas, de los cuales, durante este año de pandemia
+presentó un total de casos confirmados de 193.285; activos 1019; recuperados 178.510; y
+muertes 3878 (Larepublica, 2021).
+
+Ante este incremento de casos, los distintos gobiernos tomaron como medida la cuarentena,
+esta obligaba a todas las personas a permanecer encerrados en sus casas durante un periodo
+determinado de tiempo, esto con la intención de que el virus no se siguiera propagando y
+genera un colapso del sistema de salud, y esto a su vez llevara a perdidas mas grandes de la
+vida y por supuesto de la economía. En consecuencia, la declaración de la pandemia y el
+cierre de muchas ciudades en el mundo, tubo un impacto amplio y severo en los mercados
+financieros.
+
+El primer efecto fue sobre la producción: el aislamiento hizo que la gente no fuera a las
+fábricas y empresas y con ello se redujo la producción de bienes y servicios, afectando la
+oferta agregada. El segundo efecto fue sobre los ingresos de las personas: muchas no
+recibieron ingresos, por ser trabajadores independientes, y esto redujo la demanda y compra
+de productos; haciendo que las ventas cayeran. La tercera fue sobre los mercados
+financieros, bursátil y cambiarios, pues circuló menos dinero, se prestó menos capital y se
+comercializó menos en la economía mundial.
+
+Ante este panorama, los distintos gobiernos para contrarrestar las grandes perdidas que ha
+dejado la pandemia, se han ideado estrategias que ayuden a minimizar los efectos negativos
+para la economía. Así se evidenció en Colombia y Slovenía. Ambos implementaron
+estrategias financieras, principalmente para el sector bancario. Ante estas problemáticas las
+soluciones que planteó cada gobierno fueron similares, al menos para el sistema financiero.
+
+Para el caso colombiano, el Gobierno ante los problemas de liquidez, trabas en el acceso a
+insumos y materia prima para procesos de manufactura y comercialización y disminución
+en la oferta internacional de productos e insumos importables, propuso como forma de
+solución llegar a las empresas de todo el país para ofrecerles condiciones favorables. En
+concreto, le permitió al sector financiero tomar medidas como una reducción en las tasas de
+interés. Esta fue una medida apoyada por el Banco de la República que alivió los
+prestamos. También amplio los plazos para el pago, los cuales aumentaron hasta varios
+años; finalmente se les dio alivios financieros, subsidios del gobierno y otros apoyos a las
+empresas para que pudieran cubrir sus deudas y compromisos con las entidades crediticias.
+
+En cuanto a la economía Slovaca, el gobierno con el propósito de contribuir a resolver los
+problemas de las empresas y personas que trabajan en las industrias afectadas, es decir,
+aquellas que no pueden hacerles frente a los pasivos bancarios, se les permitirá aplazar
+pagos de préstamos por un periodo aproximado de 12 meses (SeeNewn, 2021). Decisión en
+la que también podría el parlamento de dicho país intervenir, pudiendo reducir los plazos si
+las condiciones mejoran.
+
+En conclusión, la crisis sanitaria que produjo la pandemia de la Covid-19 generó efectos
+nefastos en toda la sociedad. En especial, se afectó la economía y con ellas los diversos
+mercados de producción, trabajo, financiero, bursátil y cambiario. Esto llevó a que todos
+los países tuvieran que tomar medidas económicas para atender estas afectaciones y con
+ella reducir los daños a la economía. En cuanto a las medidas, algunos países como los dos
+analizados, tomaron decisiones con relacionen al sistema financiero muy similares, en
+cuanto a la ampliación de plazos para el cubrimiento de deudas y pasivos financieros para
+las empresas y trabajadores de cada una de ellas.
+
+
+```{r}
+# Cargar la biblioteca o paquete para leer archivos de Excel.
+library(readxl)
+```
+
+## Fuente de datos.
+
+De los datos del Banco Mundial se encuentra una base de datos que
+muestra las estrategias que han utilizado los paises con el fin de 
+afrontar la crisis del COVID-19: <https://datacatalog.worldbank.org/dataset/covid-19-finance-sector-related-policy-responses>
+
+
+```{r}
+# Lectura de la base de datos.
+estrat_fin <- read_excel("covid-fci-data.xlsx", sheet = 2)
+```
+
+## Primeros registros de la base de datos.
+
+```{r}
+head(estrat_fin)
+```
+
+
+## Últimos registros de la base de datos.
+
+```{r}
+tail(estrat_fin)
+```
+
+
+```{r}
+# Convertir al formato de base de datos de R, para evitar los espacios
+# en blanco en los nombre de las variables.
+estrat_fin <- data.frame(estrat_fin)
+```
+
+## Estructura de la base de datos.
+
+```{r}
+## Muestra los nombres y tipo de cada variable de la base de datos.
+str(estrat_fin)
+```
+
+
+## Muestra los nombres de los países.
+
+```{r}
+## Muestra los distintos nombres de los países en la base de datos.
+unique(estrat_fin$Country.Name)
+```
+
+
+```{r}
+# Selección de datos para Colombia.
+estrat_fin_Col <- subset(estrat_fin, subset = Country.Name == "Colombia")
+```
+
+
+## Tabla de frecuencia de la estrategia financiera de primer nivel para Colombia
+
+```{r}
+# Creación de una tabla de los políticas de nivel 1 para Colombia
+tabla_estra <- table(estrat_fin_Col$Level.1.policy.measures)
+tabla_estra
+```
+## Tabla de Colombia
+
+Se puede observar numerp 1, que el sistema mas usado son los funding 
+
+
+```{r}
+# Ordenar descendentemente la tabla.
+tabla_estra <- sort(tabla_estra, decreasing = TRUE)
+tabla_estra
+```
+
+```{r}
+# Gráfica de barras preliminar para mostrar la tabla.
+# Uso del barplot básico:
+# http://estadistica-dma.ulpgc.es/cursoR4ULPGC/9b-grafBarplot.html
+barplot(tabla_estra, las = 2)
+```
+
+
+```{r}
+# Gráfica de barras mejorada.
+# Algunas opciones avanzadas de "barplot()"
+# https://estadisticamente.com/grafico-barras-columnas-barplot-r/
+# https://www.r-graph-gallery.com/210-custom-barplot-layout.html
+# Tabla de colores de R:
+# https://www.r-graph-gallery.com/42-colors-names.html
+
+paramAnt <- par(no.readonly = TRUE)
+par(mar = paramAnt$mar + c(5, 0, 0, 0))
+barplot(tabla_estra, las = 2,
+        main  = "Distribución de las estrategias financieras\nen Colombia",
+        ylim = c(0,30),
+        col = "chocolate")
+grid(NA, 9)
+par(paramAnt)
+```
+
+```{r}
+# Selección de datos para Colombia.
+estrat_fin_slov <- subset(estrat_fin, subset = Country.Name == "Slovenia")
+```
+
+
+## Tabla de frecuencia de la estrategia financiera de primer nivel para Slovenia 
+
+```{r}
+# Creación de una tabla de los políticas de nivel 1 para Colombia
+tabla_eslov<- table(estrat_fin_slov$Level.1.policy.measures)
+tabla_eslov
+```
+
+```{r}
+# Ordenar descendentemente la tabla.
+tabla_eslov <- sort(tabla_eslov, decreasing = TRUE)
+tabla_eslov
+```
+
+```{r}
+# Gráfica de barras preliminar para mostrar la tabla.
+# Uso del barplot básico:
+# http://estadistica-dma.ulpgc.es/cursoR4ULPGC/9b-grafBarplot.html
+barplot(tabla_eslov, las = 2)
+```
+
+
+```{r}
+# Gráfica de barras mejorada.
+# Algunas opciones avanzadas de "barplot()"
+# https://estadisticamente.com/grafico-barras-columnas-barplot-r/
+# https://www.r-graph-gallery.com/210-custom-barplot-layout.html
+# Tabla de colores de R:
+# https://www.r-graph-gallery.com/42-colors-names.html
+
+paramAn <- par(no.readonly = TRUE)
+par(mar = paramAn$mar + c(5, 0, 0, 0))
+barplot(tabla_eslov, las = 2,
+        main  = "Distribución de las estrategias financieras Slovenia",
+        ylim = c(0,50),
+        col = "blue")
+grid(NA, 9)
+par(paramAn)
+```
+
+## Referencias bibliográficas
+
+Instituto Nacional de Salud. (2021, 4 de marzo). Covid-19 en Colombia. Recuperado de:
+https://www.ins.gov.co/Noticias/paginas/coronavirus.aspx
+
+LaRepublica. (2021, 4 de marzo). Avance de casos de Covid-19 en Slovenia. Recuperado
+de: https://www.larepublica.co/especial-covid-19/eslovenia
+
+SeeNews. (2021, 4 de marzo). Slovenian govt proposes 12-month deferral of loan
+repayment due to coronavirus crisis. Recuperado de: https://seenews.com/news/slovenian-
+govt-proposes-12-month-deferral-of-loan-repayment-due-to-coronavirus-crisis-691543
