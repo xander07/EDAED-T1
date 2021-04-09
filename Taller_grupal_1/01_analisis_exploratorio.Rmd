@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ---
 title: "Análisis exploratorio de la encuesta inicial"
 author: "Kenneth Roy Cabrera Torres"
@@ -26,11 +25,15 @@ library(tidyverse)
 ```{r}
 ## Lectura de una base de datos tipo ".csv"
 encuesta <- read.csv("encuesta1.csv")
-barplot(encuesta$Q08_PAPA)
 ```
 
 
+
 ## Visualización de los datos
+
+Estas visualizaciones nos ayudan a identificar si los datos que tenemos son del tipo correcto, si tienen anomalías, y en general, si están listos para empezar a trabajar con ellos o debemos hacer algún proceso de depuración.
+
+En este punto, con las visualizaciones que obtuvimos, los datos aún no están listos por tanto necesitaremos realizar un proceso de depuración, descrito a continuación:
 
 #### Primera visualización de la estructura de la BD
 
@@ -53,9 +56,6 @@ glimpse(encuesta)
 summary(encuesta)
 ```
 
-Visualizar la base de datos antes de iniciar a trabajar sobre ella es necesario. Primero ayudan a identificar si los datos sobre los cuales se va a trabajar son totalmente correctos.Y segundo, si presentan algún tipo de anomalía. Esto con el propósito de saber si los datos están listos para empezar a trabajar sobre ellos o se debe hacer algún proceso de depuración antes de, que permita posteriormente el análisis exploratorio. 
-
-En este punto, luego de observar detenidamente la base de datos, se puede notar que, los datos aún no están  totalmente listos.Por tanto, se hace necesario realizar un proceso de depuración, que será descrito a continuación, veamos.  
 
 ## Depuración de los datos
 
@@ -81,7 +81,7 @@ encuesta <- encuesta %>%
 encuesta <- encuesta %>% mutate_if(is.character, as.factor)
 ```
 
-#### 3. Etiquetamos la variable estrato como "Bajo, Medio, Alto" en una nueva variable.
+#### 3. Creamos la variable estrato_etiquetado que guardará los datos de la variable estrato pero con etiquetas "Bajo, Medio, Alto".
 ```{r}
 estrato_etiquetado <- encuesta$Q10_Estrato
 estrato_etiquetado = factor(estrato_etiquetado,
@@ -91,14 +91,17 @@ estrato_etiquetado = factor(estrato_etiquetado,
 ```
 
 
-#### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentri del intervalo [0.0,5.0]
+#### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentro del intervalo [0.0,5.0]
 ```{r}
 encuesta$Q08_PAPA[encuesta$Q08_PAPA == 45 & !is.na(encuesta$Q08_PAPA)] <- 4.5
 ```
 
 
-#### 5. Unificamos la escala de los puntajes icfes a la escala actual de 0 a 500
-Referencia: https://admisiones.unimagdalena.edu.co/inscripcionPRE/conversionICFES.jsp?rnd425615
+#### 5. Unificamos la escala de los puntajes icfes a una escala de 0 a 500.
+
+Teniendo en cuenta que los puntajes del ICFES registrados en la encuesta pueden tener diferencias en la escala de calificación, dependiendo del año en el que se presentó, hemos decidido unificar las escalas siguiendo las fórmulas implementadas por la UNIMAGDALENA, las cuales están descritas en el sitio web: https://admisiones.unimagdalena.edu.co/inscripcionPRE/conversionICFES.jsp?rnd425615.
+
+Se debe aclarar que la unificación que se hace con las fórmulas mencionadas se ejecuta sobre el puntaje total de la prueba y no sobre los puntajes de cada uno de los módulos que conforman la prueba. En este sentido, se puede tener algún cesgo, ya que los módulos, en distintos años, pueden variar el peso que tienen sobre el puntaje final. No obtaste, nos da un aproximado confiable con el que podemos trabajar.
 ```{r}
 saber11 <- vector("integer", length(encuesta$Q05_Saber11))
 for(i in seq_along(encuesta$Q07_FechaSaber11)){
@@ -441,313 +444,6 @@ En el grupo después de discutir esta pregunta, se llegó a la conclusión, que 
 ```
 
 
-=======
----
-title: "Análisis exploratorio de la encuesta inicial"
-author: "Kenneth Roy Cabrera Torres"
-date: "Viernes, 26 de marzo de 2021"
-modification: "Jhon Jairo Serna Córdoba, Laura Flórez"
-output: 
-  html_document: 
-    toc: yes
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,
-                      warning = FALSE,
-                      message = FALSE)
-```
-
-## Librerías y lectura de la BD
-
-```{r}
-## Paquetes usados en el análisis.
-library(tidyverse)
-```
-
-```{r}
-## Lectura de una base de datos tipo ".csv"
-encuesta <- read.csv("encuesta1.csv")
-
-```
-
-
-## Visualización de los datos
-
-#### Primera visualización de la estructura de la BD
-
-```{r}
-## Visualizar la estructura de la BD.
-str(encuesta)
-```
-
-#### Segunda visualización (más organizada) de la estructura de la BD
-
-```{r}
-## Vista más organizada de la estructras BD.
-
-glimpse(encuesta)
-```
-
-#### Resumen general de los datos que tenemos en la BD
-
-```{r}
-summary(encuesta)
-```
-
-Estas visualizaciones nos ayudan a identificar si los datos que tenemos son del tipo correcto, si tienen anomalías, y en general, si están listos para empezar a trabajar con ellos o debemos hacer algún proceso de depuración.
-
-En este punto, con las visualizaciones que obtuvimos, los datos aún no están listos por tanto necesitaremos realizar un proceso de depuración, descrito a continuación: 
-
-
-
-
-## Depuración de los datos
-
-#### 1. Cambiamos los datos que tienen formato fecha de CHARACTER a DATE.
-```{r}
-## Convertimos la variable Enviado.el. a tipo POSIXct (DATE TIME)
-encuesta <- encuesta %>% 
-  mutate(Enviado.el. = as.POSIXct(strptime(Enviado.el., format = "%d/%m/%Y %H:%M:%S")))
-
-
-## Convertimos la variable Q02_FechaNac a tipo DATE
-encuesta <- encuesta %>% 
-  mutate(Q02_FechaNac = as.Date(as.character(Q02_FechaNac), "%Y-%m-%d"))
-
-## Convertimos la variable Q07_FechaSaber11 a tipo DATE
-encuesta <- encuesta %>% 
-  mutate(Q07_FechaSaber11 = as.Date(as.character(Q07_FechaSaber11),"%Y-%m-%d"))
-```
-
-
-#### 2. Cambiamos los datos que quedan de tipo CHARACTER a FACTOR.
-```{r}
-encuesta <- encuesta %>% mutate_if(is.character, as.factor)
-```
-
-#### 3. Etiquetamos la variable estrato como "Bajo, Medio, Alto" en una nueva variable.
-```{r}
-estrato_etiquetado <- encuesta$Q10_Estrato
-estrato_etiquetado = factor(estrato_etiquetado,
-                            levels = levels(estrato_etiquetado),
-                            labels = c("Bajo","Bajo","Medio","Medio","Alto",NA),
-                            ordered = F)
-```
-
-
-#### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentro del intervalo [0.0,5.0]
-```{r}
-encuesta$Q08_PAPA[encuesta$Q08_PAPA == 45 & !is.na(encuesta$Q08_PAPA)] <- 4.5
-```
-
-
-#### 5. Unificamos la escala de los puntajes icfes a la escala actual de 0 a 500
-Referencia: https://admisiones.unimagdalena.edu.co/inscripcionPRE/conversionICFES.jsp?rnd425615
-```{r}
-saber11 <- vector("integer", length(encuesta$Q05_Saber11))
-for(i in seq_along(encuesta$Q07_FechaSaber11)){
-  valor<-0
-  if(!is.na(encuesta$Q05_Saber11[[i]]) & encuesta$Q07_FechaSaber11[[i]] < as.Date("2000-01-01")) {
-    valor <- (5*(encuesta$Q05_Saber11[[i]]-100))/3
-    if(valor >= 0 & valor <= 500){
-      saber11[[i]] <- round(valor,0)
-    } else {
-      saber11[[i]] <- encuesta$Q05_Saber11[[i]]
-    }
-  } else if(!is.na(encuesta$Q05_Saber11[[i]]) & encuesta$Q07_FechaSaber11[[i]] >= as.Date("2000-01-01") &
-        encuesta$Q07_FechaSaber11[[i]] < as.Date("2012-01-01")){
-            valor <- encuesta$Q05_Saber11[[i]]*5
-            if(valor >= 0 & valor <= 500){
-              saber11[[i]] <- valor
-            } else {
-              saber11[[i]] <- encuesta$Q05_Saber11[[i]]
-            }
-  } else if(!is.na(encuesta$Q05_Saber11[[i]]) & encuesta$Q07_FechaSaber11[[i]] >= as.Date("2012-01-01")){
-            saber11[[i]] <- encuesta$Q05_Saber11[[i]]
-  } else{
-      saber11[[i]] <- encuesta$Q05_Saber11[[i]]
-  }
-}
-```
-
-
-
-#### 6. Calculamos la edad de los encuestados de acuerdo a su fecha de nacimiento.
-```{r}
-# Cálculo de la edad
-edad <- as.numeric(as.Date("2021-06-30") - encuesta$Q02_FechaNac)/365.25
-```
-
-
-
-
-
-#### 7. Etiquetamos las variables Q24_area y Q26_Divisor como "Correcto/Incorrecto."
-```{r}
-## Creamos la variable area que contiene la variable Q24_area etiquetada como "Correcto/Incorrecto"  
-area <- encuesta$Q24_area
-area = factor(area, 
-              levels = levels(area),
-              labels = c("Incorrecto","Incorrecto","Incorrecto","Correcto","Incorrecto","Incorrecto"),
-              ordered = F)
-
-```
-```{r}
-## Creamos la variable divisor que contiene la variable Q26_Divisor etiquetada como "Correcto/Incorrecto".
-divisor = if_else(encuesta$Q26_Divisor..f.es.divisor.de.g.2.==1 & encuesta$Q26_Divisor..f.es.divisor.de.gh.==1 & encuesta$Q26_Divisor..f.es.divisor.de.h.g==1, "Correcto", "Incorrecto")
-divisor
-
-```
-
-#### Visualicemos nuevamente nuestros datos y su estructura después de la depuración.
-
-```{r}
-glimpse(encuesta)
-```
-```{r}
-summary(encuesta)
-
-```
-
-
-## HASTA AQUÍ VA LA DEPURACIÓN
-
-## Análisis univariado.
-
-### Género.
-
-```{r}
-t_gen <- table(encuesta$Q01_Genero)
-t_gen
-```
-```{r}
-t_gen_p <- t_gen / sum(t_gen) * 100
-t_gen_p
-```
-
-```{r}
-bp1 <- barplot(t_gen_p, las = 1, ylim = c(0, 100), col = "lightgreen")
-text(bp1, t_gen_p + 10, paste(round(t_gen_p, 1), "%"))
-```
-
-```{r}
-m_gen_p <- as.matrix(t_gen_p)
-bp2 <- barplot(m_gen_p, beside = FALSE, xlim = c(0, 4),
-               ylim = c(0, 110),
-               col = c("blue", "red", "green3"))
-text(1.3, cumsum(m_gen_p) - m_gen_p/2, 
-     paste(rownames(m_gen_p), round((m_gen_p), 1), "%"),
-     adj = 0)
-```
-
-```{r}
-pie(t_gen_p, labels = paste(names(t_gen_p), round(t_gen_p, 1), "%"),
-    col = c("blue", "red", "green3"))
-```
-
-### Edad
-
-```{r}
-summary(encuesta$Edad)
-```
-
-```{r}
-hist(encuesta$Edad)
-```
-
-```{r}
-hist(encuesta$Edad, nclass = 20)
-```
-
-```{r}
-paramAnt <- par(no.readonly = TRUE)
-hist(encuesta$Edad, freq = FALSE, nclass = 20, col = "#a0c39f",
-     las = 1, 
-     main = "Distribución de la edad",
-     xlab = "Edad (años)",
-     ylab = "Densidad",
-     ylim = c(0, 0.20),
-     xlim = c(15, 40))
-lines(density(encuesta$Edad), col = "orange", lwd = 3)
-rug(encuesta$Edad)
-par(paramAnt)
-```
-
-```{r}
-promedioEdad <- mean(encuesta$Edad)
-medianaEdad <- median(encuesta$Edad)
-desv_Est_Edad <- sd(encuesta$Edad)
-
-boxplot(encuesta$Edad, horizontal = TRUE,
-        main = "Boxplot para edad", 
-        col = "lightblue",
-        pch = 19, notch = TRUE)
-points(promedioEdad, 
-       1, 
-       pch = 19, 
-       col = c("red", "purple"))
-legend("topright", 
-       title = "Convención",
-       legend = c("Promedio", "Error estandard"), 
-       col = "red", 
-       pch = c(19, NA),
-       lty = c(NA, 1))
-arrows(promedioEdad -  desv_Est_Edad / sqrt(nrow(encuesta)), 1,
-         promedioEdad + desv_Est_Edad / sqrt(nrow(encuesta)), 1,
-         angle = 90,
-         length = 0.1, 
-         code = 3,
-         col = "red")
-```
-
-## Análisis bivariado.
-
-```{r}
-with(encuesta, plot(Q10_Estrato, Q08_PAPA, notch = TRUE))
-```
-
-```{r}
-encuesta_Estrato1 <- encuesta %>% 
-  filter(Q10_Estrato == "2 : 1")
-dotchart(encuesta_Estrato1$Q08_PAPA)
-summary(encuesta_Estrato1$Q08_PAPA)
-```
-
-```{r}
-with(encuesta, plot(Q01_Genero, Q08_PAPA, notch = TRUE))
-```
-
-```{r}
-with(encuesta, scatter.smooth(tiempo_usado, Q08_PAPA))
-```
-
-```{r}
-with(encuesta, plot(Q27_PorcentDivisor))
-lines(1:nrow(encuesta), rep(pt_p2[3], nrow(encuesta)), 
-      col = "red")
-```
-
-```{r}
-enc_acert_p2 <- encuesta %>% 
-  filter(puntaje_pregunta2 == 3)
-enc_no_acert_p2 <- encuesta %>% 
-  filter(puntaje_pregunta2 != 3)
-op <- par(no.readonly = TRUE)
-par(mfrow = c(1, 2))
-prom_Q27 <- mean(enc_acert_p2$Q27)
-with(enc_acert_p2, plot(Q27_PorcentDivisor, ylim = c(0, 100)))
-lines(1:nrow(enc_acert_p2), rep(prom_Q27, nrow(enc_acert_p2)), 
-      col = "red")
-prom_Q27_na <- mean(enc_no_acert_p2$Q27, na.rm = TRUE, ylim = c(0, 100))
-with(enc_no_acert_p2, plot(Q27_PorcentDivisor))
-lines(1:nrow(enc_no_acert_p2), rep(prom_Q27_na, nrow(enc_no_acert_p2)), 
-      col = "red")
-par(op)
-```
-
-## Análisis multivariado.
-
 Se considera que existe diferencia entre las carreras de
 sistemas y estadística en cuanto 
 a los que tienen instalado tanto el R como el RStudio y que también
@@ -840,10 +536,3 @@ grupos si hay una tendencia a tener mejor desempeño en el el PAPA los
 estudiantes de estadístca que tienen instalado solo el R, mientras que
 los que no lo han instalado los programas el desempeño académico tiene
 a se más bajo sin que haya diferencia significativa. 
-
-
-
-
-
-
->>>>>>> Stashed changes
