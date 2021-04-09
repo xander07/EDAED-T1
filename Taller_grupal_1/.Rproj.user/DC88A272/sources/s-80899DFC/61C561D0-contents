@@ -51,9 +51,9 @@ glimpse(encuesta)
 summary(encuesta)
 ```
 
-Visualizar la base de datos antes de iniciar a trabajar sobre ella es necesario. Primero ayudan a identificar si los datos sobre los cuales se va a trabajar son totalemente correctos.Y segundo, si presentan algún tipo de anomalía. Esto con el propósito de saber si los datos están listos para empezar a trabajar con ellos o se debe hacer algún proceso de depuración antes de, que permita posteriormente el análisis exploratorio. 
+Visualizar la base de datos antes de iniciar a trabajar sobre ella es necesario. Primero ayudan a identificar si los datos sobre los cuales se va a trabajar son totalemente correctos.Y segundo, si presentan algún tipo de anomalía. Esto con el propósito de saber si los datos están listos para empezar a trabajar sobre ellos o se debe hacer algún proceso de depuración antes de, que permita posteriormente el análisis exploratorio. 
 
-En este punto, luego de observar detenidamente la base de datos, se puede notar que, los datos aún no están  totalmente listos para trabajar sobre ellos.Por tanto, se hace necesario realizar un proceso de depuración, que será descrito a continuanción, veamos.  
+En este punto, luego de observar detenidamente la base de datos, se puede notar que, los datos aún no están  totalmente listos.Por tanto, se hace necesario realizar un proceso de depuración, que será descrito a continuanción, veamos.  
 
 
 
