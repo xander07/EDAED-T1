@@ -31,7 +31,7 @@ encuesta <- read.csv("encuesta1.csv")
 
 ## Visualización inicial de los datos
 
-Esta visualización es de gran importancia, pues no permitirá definir si se necesita o no de un proceso de depuración. Es un primer acercamiento para conocer la estructura de los datos que conforman nuestra base de datos y detectar anomalías o errores que pueden afectar los resultados del análísis que haremos posteriormente.
+Esta visualización es de gran importancia, pues nos permitirá definir si nuestra base de datos necesita o no de un proceso de depuración. Con este primer acercamiento observaremos la cantidad de registros, detalles como el tipo y la estructura de los datos que conforman nuestra base de datos, lo cual, nos ayudará detectar las anomalías o errores más evidentes que pueden afectar los resultados del análísis que haremos posteriormente.
 
 #### Visualización de la estructura general de la BD
 
@@ -40,12 +40,23 @@ Esta visualización es de gran importancia, pues no permitirá definir si se nec
 glimpse(encuesta)
 ```
 
+En esta primera visualización nos centraremos en el tipo de dato de cada una de las variables (Columnas de la BD) para determinar si son acordes o lógicos, según nuestro criterio o necesidad. Por ejemplo, las variables que tienen formato de fecha tienen un tipo de dato apropiado para texto (Character) pero no para fechas (Date). Esta será una de las modificaciones en el proceso de depuración.
+
+Otras variables como Genero y Carrera que son de tipo Character, podríamos cambiarlas a tipo Factor, buscando facilitar su manejo en el proceso de análisis.
+
+Más adelante, en el proceso de depuración, veremos más detalladamente las variables que modificaremos para realizar nuestro análisis, pues ya habremos definido con cuáles vamos a trabajar. Por ahora, veámos un resumen de nuestra base de datos: 
+
 #### Resumen general de los datos que tenemos en la BD
 
 ```{r}
 summary(encuesta)
 ```
 
+Como observamos, un resumen de la base de datos nos permite observar, en las variables de tipo Character, la cantidad de registros, mientras en las variables de tipo numérico (Double, Integer), nos muestra algunas estadísticas básicas de nuestras como la media, la mediana, el valor máximo y mínimo, los cuartiles, cantidad de datos faltantes, etc., ayudándonos a detectar que variables como la Q09_EnAreaMetropolitana o Q14_RecursosInformáticos deberían ser de tipo Factor, por ejemplo, y no de tipo Numérico.
+
+Este resumen nos permite observar algunos valores atípicos, como por ejemplo, el valor máximo en la variable Q08_PAPA que es 45, superando el rango lógico [0.0, 5.0] al cual debería pertenecer.
+
+Así, con toda la información que nos brinda la visualización general de nuestra base de datos y después de definir las variables con las que vamos a trabajar, entonces podemos empezar el proceso de depuración de nuestra base de datos.s
 
 ## Depuración de los datos
 
@@ -135,6 +146,8 @@ for(i in seq_along(encuesta$Q07_FechaSaber11)){
       saber11[[i]] <- encuesta$Q05_Saber11[[i]]
   }
 }
+
+encuesta$Q05_Saber11 = saber11
 ```
 
 
@@ -276,7 +289,7 @@ summary(encuesta)
 
 
 ```{r}
-with(encuesta, plot(Q10_Estrato, Q08_PAPA, notch = TRUE))
+#with(encuesta, plot(Q10_Estrato, Q08_PAPA, notch = TRUE))
 ```
 
 ¿Qué estrato tienen mejor PAPA?
@@ -285,16 +298,16 @@ El supuesto que se tiene a la hora de plantear esta pregunta, es que los estudia
 
 
 ```{r}
-encuesta_Estrato1 <- encuesta %>% 
-  filter(Q10_Estrato == "2 : 1")
-dotchart(encuesta_Estrato1$Q08_PAPA)
-summary(encuesta_Estrato1$Q08_PAPA)
+# encuesta_Estrato1 <- encuesta %>% 
+#   filter(Q10_Estrato == "2 : 1")
+# dotchart(encuesta_Estrato1$Q08_PAPA)
+# summary(encuesta_Estrato1$Q08_PAPA)
 ```
 
 
 
 ```{r}
-with(encuesta, plot(Q01_Genero, Q08_PAPA, notch = TRUE))
+# with(encuesta, plot(Q01_Genero, Q08_PAPA, notch = TRUE))
 ```
 
 
