@@ -1,0 +1,5 @@
+"0","encst_habit <- read.csv2(""Encuesta_habitos.csv"", "
+"0","                       encoding = ""UTF-8"","
+"0","                       dec = ""."")"
+"2","Error in file(file, ""rt"") : cannot open the connection
+"

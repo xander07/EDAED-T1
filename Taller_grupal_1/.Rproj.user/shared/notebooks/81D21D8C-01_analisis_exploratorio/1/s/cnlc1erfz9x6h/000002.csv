@@ -8,20 +8,20 @@
 "1","
 "
 "1","$ Respuesta                                                                   [3m[38;5;246m<int>[39m[23m 2439, 2…
-$ Enviado.el.                                                                 [3m[38;5;246m<chr>[39m[23m ""26/02/…
-$ Q01_Genero                                                                  [3m[38;5;246m<chr>[39m[23m ""1 : Ma…
-$ Q02_FechaNac                                                                [3m[38;5;246m<chr>[39m[23m ""1997-0…
-$ Q03_Carrera                                                                 [3m[38;5;246m<chr>[39m[23m ""1 : Ma…
+$ Enviado.el.                                                                 [3m[38;5;246m<dttm>[39m[23m 2021-0…
+$ Q01_Genero                                                                  [3m[38;5;246m<fct>[39m[23m 1 : Mas…
+$ Q02_FechaNac                                                                [3m[38;5;246m<date>[39m[23m 1997-0…
+$ Q03_Carrera                                                                 [3m[38;5;246m<fct>[39m[23m 1 : Mat…
 $ Q04_Semestre                                                                [3m[38;5;246m<dbl>[39m[23m 7.0, 5.…
 $ Q05_Saber11                                                                 [3m[38;5;246m<int>[39m[23m 420, 34…
 $ Q06_PercentilSaber11                                                        [3m[38;5;246m<dbl>[39m[23m 3.0, 90…
-$ Q07_FechaSaber11                                                            [3m[38;5;246m<chr>[39m[23m ""2014-0…
+$ Q07_FechaSaber11                                                            [3m[38;5;246m<date>[39m[23m 2014-0…
 $ Q08_PAPA                                                                    [3m[38;5;246m<dbl>[39m[23m 3.7, 3.…
 $ Q09_EnAreaMetropolitana                                                     [3m[38;5;246m<int>[39m[23m 1, 1, 1…
-$ Q10_Estrato                                                                 [3m[38;5;246m<chr>[39m[23m ""4 : 3""…
+$ Q10_Estrato                                                                 [3m[38;5;246m<fct>[39m[23m 4 : 3, …
 $ Q11_R                                                                       [3m[38;5;246m<int>[39m[23m 1, 1, 0…
 $ Q12_RStudio                                                                 [3m[38;5;246m<int>[39m[23m 1, 1, 1…
-$ Q13_NoRoRStudio                                                             [3m[38;5;246m<chr>[39m[23m """", """",…
+$ Q13_NoRoRStudio                                                             [3m[38;5;246m<fct>[39m[23m , , , ,…
 $ Q14_RecursosInformaticos..Internet.de.cable.propio                          [3m[38;5;246m<int>[39m[23m 0, 1, 1…
 $ Q14_RecursosInformaticos..Internet.de.cable.no.propio                       [3m[38;5;246m<int>[39m[23m 0, 0, 0…
 $ Q14_RecursosInformaticos..Wifi.propio                                       [3m[38;5;246m<int>[39m[23m 1, 1, 1…
@@ -45,7 +45,7 @@ $ Q20_RafagasSolares                                                          [
 $ Q21_TierraHueca                                                             [3m[38;5;246m<int>[39m[23m 0, 0, 0…
 $ Q22_alienigenas                                                             [3m[38;5;246m<int>[39m[23m 0, 0, 0…
 $ Q23_CambioClimatico                                                         [3m[38;5;246m<int>[39m[23m 0, 0, 0…
-$ Q24_area                                                                    [3m[38;5;246m<chr>[39m[23m ""4 : 4*…
+$ Q24_area                                                                    [3m[38;5;246m<fct>[39m[23m 4 : 4*p…
 $ Q25_PorcentArea                                                             [3m[38;5;246m<dbl>[39m[23m 45, 70,…
 $ Q26_Divisor..f.es.divisor.de.g.2.                                           [3m[38;5;246m<int>[39m[23m 1, 1, 1…
 $ Q26_Divisor..f.es.divisor.de.gh.                                            [3m[38;5;246m<int>[39m[23m 1, 1, 1…

@@ -1,0 +1,3 @@
+"0","tabla_gen <-  table(Enc_habit$genero)"
+"2","Error in table(Enc_habit$genero) : object 'Enc_habit' not found
+"

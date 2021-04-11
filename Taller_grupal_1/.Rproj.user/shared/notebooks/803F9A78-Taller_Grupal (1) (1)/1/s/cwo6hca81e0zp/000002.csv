@@ -1,0 +1,8 @@
+"0","color4 <- c(""#FFDD20"", ""#85FF20"", ""#20EBFF"", ""#FF203B"", ""#8920FF"", ""#203BFF"")"
+"0","par_ant <- par(no.readonly = TRUE)"
+"0","par(bg = ""#F0F6FA"")"
+"0","plot(seq(0,8, length.out = 70), seq(0,60, length.out = 70),"
+"0","     type = ""n"","
+"0","     axes = FALSE,"
+"0","     xlab = ""Estrato"","
+"0","     ylab = """")"

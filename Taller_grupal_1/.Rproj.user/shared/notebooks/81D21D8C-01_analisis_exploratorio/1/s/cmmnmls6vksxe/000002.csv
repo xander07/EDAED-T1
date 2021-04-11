@@ -1,0 +1,1 @@
+"0","with(encuesta, plot(Q10_Estrato, Q08_PAPA, notch = TRUE))"
