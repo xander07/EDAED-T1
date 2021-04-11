@@ -80,19 +80,24 @@ estrato_etiquetado = factor(estrato_etiquetado,
                             labels = c("Bajo","Bajo","Medio","Medio","Alto",NA),
                             ordered = F)
 ```
+
+
 ```{r}
 encuesta <- encuesta %>% 
   mutate(Q10_Estrato = as.character(encuesta$Q10_Estrato))
 
-encuesta$Q10_Estrato[(encuesta$Q10_Estrato ==	 "2 : 1" |  encuesta$Q10_Estrato == "3 : 2")] <- "bajo"
+encuesta$Q10_Estrato[(encuesta$Q10_Estrato ==	 "2 : 1" |  encuesta$Q10_Estrato == "3 : 2")] <- "Bajo"
 
 encuesta$Q10_Estrato[(encuesta$Q10_Estrato ==	 "4 : 3" |  encuesta$Q10_Estrato == "5 : 4")] <- "Medio"
 
 encuesta$Q10_Estrato[(encuesta$Q10_Estrato ==	 "6 : 5"  )] <- "Alto"
 
 encuesta$Q10_Estrato[(encuesta$Q10_Estrato ==	 "8 : No se conoce"  )] <- NA
+encuesta <- encuesta %>% 
+  mutate(Q10_Estrato = as.factor(encuesta$Q10_Estrato))
 
 ```
+
 
 #### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentro del intervalo [0.0,5.0]
 ```{r}
@@ -450,6 +455,7 @@ En el grupo después de discutir esta pregunta, se llegó a la conclusión, que 
 ```{r}
 
 ```
+Respuestas a las preguntas de Laura
 
 
 Se considera que existe diferencia entre las carreras de
@@ -463,6 +469,40 @@ mejor desempeño académico en comparación con los que no lo hicieron.
 
 También se cree que los estudiantes de estadística son los que en
 su mayoría han instalado el R y el RStudio. 
+
+
+```{r}
+estratos_sin_na <- encuesta %>%
+  filter(Q10_Estrato == "Alto" | Q10_Estrato == "Medio" | Q10_Estrato == "Bajo")
+  
+
+tabla_PAPA <- estratos_sin_na %>%
+  group_by(Q10_Estrato) %>% 
+  summarise(num_estud = sum(!is.na(Q08_PAPA)),
+            prom_PAPA = mean(Q08_PAPA, na.rm = TRUE),
+            desv_PAPA = sd(Q08_PAPA, na.rm = TRUE)) 
+tabla_PAPA <- data.frame(tabla_PAPA)
+tabla_PAPA
+```
+
+
+```{r, fig.height=8, fig.width=8}
+
+ with(encuesta, 
+      plot(Q10_Estrato, Q08_PAPA, notch = TRUE,
+           las = 2,
+           col = "lightblue",
+           main = "PAPA vs estrato",
+           ylab = "Promedio Académico Ponderado Acumulado",
+           xlab = "Estrato",
+           pch = 19))
+ with(tabla_PAPA, 
+      points(Q10_Estrato, prom_PAPA, 
+            col = "red", pch = 19))
+```
+
+
+
 
 
 ### Resumen numérico
