@@ -179,12 +179,6 @@ summary(encuesta)
 
 ## HASTA AQUÍ VA LA DEPURACIÓN
 
-
-
-
-
-
-
 ## Análisis univariado.
 
 ### Género.
@@ -584,3 +578,56 @@ grupos si hay una tendencia a tener mejor desempeño en el el PAPA los
 estudiantes de estadístca que tienen instalado solo el R, mientras que
 los que no lo han instalado los programas el desempeño académico tiene
 a se más bajo sin que haya diferencia significativa. 
+
+
+
+
+
+#
+#
+#
+## KARINA
+
+
+
+
+
+
+
+
+
+
+
+### HASTA AQUÍ VA KARINA
+
+## LAURA
+
+
+
+
+
+
+
+### HASTA AQUÍ VA LAURA
+
+## ALEX
+
+
+
+
+
+
+
+### HASTA AQUÍ VA ALEX
+
+## JOHAN
+
+
+
+
+
+
+### HASTA AQUÍ VA JOHAN
+
+
+## JHON
