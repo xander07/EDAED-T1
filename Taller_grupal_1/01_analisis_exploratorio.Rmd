@@ -427,7 +427,7 @@ a se más bajo sin que haya diferencia significativa.
 
 Solución a las preguntas de Karina:
 
-Pregunta bivariada. Cruce de variable con el PAPA, con wifi propio
+Pregunta bivariada. Cruce de variable con el PAPA, con el semestre 
 
 ¿Los estudiantes que tienen wifi propio reportan un mejor PAPA que quienes no tienen?
 
@@ -443,10 +443,9 @@ t1 <- table(encuesta$Q14_RecursosInformaticos..Wifi.propio)
 
 Pregunta multivariada
 
-¿El puntaje alto en las pruebas saber y el papa de los estudiantes del curso de estadística descriptiva y exploratoria dependen de su estrato socioeconómico?
+¿El puntaje alto en las pruebas saber y el PAPA de los estudiantes del curso de estadística descriptiva y exploratoria dependen de su estrato socioeconómico?
 
 En el grupo después de discutir esta pregunta, se llegó a la conclusión, que nada tiene que ver el hecho de pertenecer a determinado estrato con el puntaje de las pruebas saber 11 y el PAPA, pues se ha visto en muchas ocasiones como en los estratos bajos y altos hay gente con muy buenos resultados académicos 
-
 
 ```{r}
 
