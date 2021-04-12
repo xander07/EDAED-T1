@@ -1,8 +1,0 @@
-"0","bp4 <- barplot(tabla_est,"
-"0","               las = 1,"
-"0","               ylim = c(0, 70),"
-"0","               col = color4,"
-"0","               add = TRUE)"
-"2","Error in barplot(tabla_est, las = 1, ylim = c(0, 70), col = color4, add = TRUE) : 
-  object 'tabla_est' not found
-"

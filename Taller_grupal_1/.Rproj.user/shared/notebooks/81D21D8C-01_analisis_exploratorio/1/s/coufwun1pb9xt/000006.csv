@@ -1,0 +1,5 @@
+"0","estratos_sin_na <- encuesta %>%"
+"0","  filter(Q10_Estrato == ""Alto"" | Q10_Estrato == ""Medio"" | Q10_Estrato == ""Bajo"")"
+"2","Error in encuesta %>% filter(Q10_Estrato == ""Alto"" | Q10_Estrato == ""Medio"" |  : 
+  could not find function ""%>%""
+"
