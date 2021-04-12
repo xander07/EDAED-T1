@@ -541,11 +541,10 @@ Pregunta bivariada. Cruce de variable  PAPA, con la carrera
 
 ¿Los estudiantes que tienen mejor PAPA se encuentran en los semestres mas altos?
 
-El supuesto que se tiene en esta pregunta es que si, los estudiantes que estan cursando la carrera de ingenieria en sistemas tiene un PAPA mas alto que quienes están cursando estadística, esto debido a que, se podría pensar que los ingenieros en sistemas son mas dedicados y saben mas de manejo computacional que un estudiante de estadística. 
+El supuesto que se tiene en esta pregunta es que si, los estudiantes que estan cursando la carrera de ingenieria en sistemas tiene un PAPA mas alto que quienes están cursando estadística, esto debido a que, se podría pensar que los ingenieros en sistemas son mas dedicados ya que su carrera es muy demandada, entonces siempre se seleccionan los mejores, además,saben mas de manejo computacional que un estudiante de estadística. 
 
 Para responder a esta pregunta, en primer lugar lo que hizo fue analizar que carreras están cursando los estudiantes del curso de estadistica descriptiva y exploratoria, para esto se realiza una tabla de frecuencias, contabulizar cuantas personas hay por carreras. 
 
-### Gráfica exploratoria Carrera Vs PAPA
         
 ```{r}
 encuesta_sist_estad <- encuesta %>% 
@@ -563,10 +562,14 @@ encuesta_sist_estad_resumen <- encuesta_sist_estad %>%
   mutate(porcent_x_carrera = num_estud_noNA / num_estud_carrera * 100)
 encuesta_sist_estad_resumen %>% data.frame()
 ```
+### Gráfica exploratoria Carrera Vs PAPA
+
 
 ```{r}
 boxplot(Q08_PAPA~ Q03_Carrera, data = encuesta_sist_estad, col = "bisque" , log = "y")
 title("Carrera VS PAPA")
+points(encuesta_sist_estad_resumen$Q03_Carrera, encuesta_sist_estad_resumen$prom_PAPA, col = "red", pch = 19)
+legend("bottomright", legend = c("PromedioPAPA"), pch =19, col = "red")
 ```
 
 
@@ -578,10 +581,11 @@ En el grupo después de discutir esta pregunta, se llegó a la conclusión, que 
 
 
 ```{r}
-with(encuesta, plot(Q05_Saber11, Q08_PAPA,main="PAPA vs saber11",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$Q05_Saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
-lines(lowess(subset(encuesta, Q05_Saber11 == "Ingeniería de sistemas e informática")[,c("Q04_Semestre")], subset(encuesta, Q05_Saber11 == "Ingeniería de sistemas e informática")[,c("Q08_PAPA")]), col = "#CC6666", lwd = 2)
-lines(lowess(subset(encuesta, Q005_Saber11 == "Estadística")[,c("Q04_Semestre")], subset(est_ingsis, Q03_Carrera == "Estadística")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
-legend("bottomright" ,legend = c("Estudiantes de Estadística", "Estudiantes de Ingeniería de sistemas e informática"), col = c("Black","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
+with(encuesta, plot(saber11, Q08_PAPA,main="Saber11 vs PAPA",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
+lines(lowess(subset(encuesta, Q10_Estrato == "Bajo")[,c("saber11")], subset(encuesta, Q10_Estrato == "Bajo")[,c("Q08_PAPA")]), col = "#CC6666", lwd = 2)
+lines(lowess(subset(encuesta, Q10_Estrato == "Medio")[,c("saber11")], subset(encuesta, Q10_Estrato == "Medio")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
+lines(lowess(subset(encuesta, Q10_Estrato == "Alto")[,c("saber11")], subset(encuesta, Q10_Estrato == "Alto")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
+legend("bottomright" ,legend = c("bajo", "Medio", "Alto"), col = c("Black","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
 ```
 
 ```{r}
