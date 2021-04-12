@@ -21,8 +21,7 @@ knitr::opts_chunk$set(
 ## Paquetes usados en el análisis.
 library(tidyverse)
 ```
-El día 24 de febrero de 2021, se inició con la primera clase del curso de estadítica de descriptiva de 8 a 10 am. En ese lapzo de tiempo, el profesor del curso preparó una encuesta de 44 preguntas para cada uno de los matriculados sobre temas muy diversos. A partir justamente de esos datos recolectados, se propueso como primera actividad grupal realizar una análisis descriptivo y exploratorio usando esta base de datos. En la actividad hay que resolver un entramado de 10 preguntas. A continuación se podrá ir viendo el desarrollo de cada una.  
-
+El día 24 de febrero de 2021, se inició con la primera clase del curso de estadística de descriptiva de 8 a 10 am. En ese lapso de tiempo, el profesor del curso preparó una encuesta de 44 preguntas para cada uno de los matriculados sobre temas muy diversos. A partir justamente de esos datos recolectados, se propuso como primera actividad grupal realizar una análisis descriptivo y exploratorio usando esta base de datos. En la actividad hay que resolver un entramado de 10 preguntas. A continuación se podrá ir viendo el desarrollo de cada una. 
 
 ```{r}
 ## Lectura de una base de datos tipo ".csv"
