@@ -1,1 +1,0 @@
-{"frames":[],"message":"Error in encuesta %>% filter(Q10_Estrato == \"Alto\" | Q10_Estrato == \"Medio\" |  : \n  could not find function \"%>%\"\n"}

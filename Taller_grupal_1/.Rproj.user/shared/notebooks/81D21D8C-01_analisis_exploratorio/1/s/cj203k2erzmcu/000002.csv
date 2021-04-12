@@ -1,0 +1,13 @@
+"0","op <- par(no.readonly = TRUE)"
+"0","par(mar = op$mar + c(15, 0, 0, 0))"
+"0","with(encuesta_sist_estad, "
+"0","     plot(QO3_Carrera, Q08_PAPA, notch = TRUE,"
+"0","          las = 2, width = sqrt(encuesta_sist_estad_resumen$porcent_x_carrera),"
+"0","          col = ""lightblue"","
+"0","          main = ""PAPA vs carrera"","
+"0","          ylab = ""Promedio Académico Ponderado Acumulado"","
+"0","          xlab = """","
+"0","          pch = 19))"
+"2","Error in plot(QO3_Carrera, Q08_PAPA, notch = TRUE, las = 2, width = sqrt(encuesta_sist_estad_resumen$porcent_x_carrera),  : 
+  object 'QO3_Carrera' not found
+"

@@ -1,0 +1,1 @@
+"0","encuesta <- encuesta %>% mutate_if(is.character, as.factor)"
