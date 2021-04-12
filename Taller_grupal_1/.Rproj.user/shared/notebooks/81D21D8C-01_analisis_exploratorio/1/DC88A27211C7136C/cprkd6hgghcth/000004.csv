@@ -6,12 +6,9 @@
 "0","encuesta_sist_estad_resumen <- encuesta_sist_estad %>%"
 "0","  group_by(Q03_Carrera) %>% "
 "0","  mutate(num_estud_carrera = n()) %>% "
-"0","  group_by(Carrera_instala, num_estud_carrera) %>% "
+"0","  group_by(Q03_Carrera, num_estud_carrera) %>% "
 "0","  summarise(num_estud_noNA = sum(!is.na(Q08_PAPA)),"
 "0","            prom_PAPA = mean(Q08_PAPA, na.rm = TRUE),"
 "0","            desv_PAPA = sd(Q08_PAPA, na.rm = TRUE)) %>% "
 "0","  mutate(porcent_x_carrera = num_estud_noNA / num_estud_carrera * 100)"
-"2","Error: Must group by variables found in `.data`.
-* Column `Carrera_instala` is not found.
-[90mRun `rlang::last_error()` to see where the error occurred.[39m
-"
+"0","encuesta_sist_estad_resumen %>% data.frame()"

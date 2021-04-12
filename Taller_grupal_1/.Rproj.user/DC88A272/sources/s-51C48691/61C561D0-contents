@@ -545,6 +545,8 @@ El supuesto que se tiene en esta pregunta es que si, los estudiantes que estan c
 
 Para responder a esta pregunta, en primer lugar lo que hizo fue analizar que carreras están cursando los estudiantes del curso de estadistica descriptiva y exploratoria, para esto se realiza una tabla de frecuencias, contabulizar cuantas personas hay por carreras. 
 
+### Gráfica exploratoria Carrera Vs PAPA
+        
 ```{r}
 encuesta_sist_estad <- encuesta %>% 
   filter(Q03_Carrera %in% c("2 : Ingeniería de sistemas e informática",
@@ -560,43 +562,30 @@ encuesta_sist_estad_resumen <- encuesta_sist_estad %>%
             desv_PAPA = sd(Q08_PAPA, na.rm = TRUE)) %>% 
   mutate(porcent_x_carrera = num_estud_noNA / num_estud_carrera * 100)
 encuesta_sist_estad_resumen %>% data.frame()
-
-```
-### Gráfica exploratoria Carrera Vs PAPA
-
-
-```{r}
-boxplot(Q08_PAPA~  Q03_Carrera, data = encuesta) 
 ```
 
 ```{r}
-op <- par(no.readonly = TRUE)
-par(mar = op$mar + c(15, 0, 0, 0))
-with(encuesta_sist_estad, 
-     boxplot(QO3_Carrera, Q08_PAPA, notch = TRUE,
-          las = 2, width = sqrt(encuesta_sist_estad_resumen$porcent_x_carrera),
-          col = "lightblue",
-          main = "PAPA vs carrera",
-          ylab = "Promedio Académico Ponderado Acumulado",
-          xlab = "",
-          pch = 19))
-with(encuesta_sist_estad_resumen, 
-     points(Q03_Carrera, prom_PAPA, 
-           col = "red", pch = 19))
-text(0.5, 3.1, "El ancho de las cajas es proporcional a la raíz cuadrada del porcentaje de los estudiantes en cada carrera",
-     cex = 0.8, pos = 4)
-par(op)
+boxplot(Q08_PAPA~ Q03_Carrera, data = encuesta_sist_estad, col = "bisque" , log = "y")
+title("Carrera VS PAPA")
 ```
 
 
 Pregunta multivariada
 
-¿El puntaje alto en las pruebas saber11 y el PAPA de los estudiantes del curso de estadística descriptiva y exploratoria dependen de su estrato socioeconómico?
+¿El puntaje alto en las pruebas Saber11 y el PAPA de los estudiantes del curso de estadística descriptiva y exploratoria dependen de su estrato socioeconómico?
 
 En el grupo después de discutir esta pregunta, se llegó a la conclusión, que nada tiene que ver el hecho de pertenecer a determinado estrato con el puntaje de las pruebas saber 11 y el PAPA, pues se ha visto en muchas ocasiones como en los estratos bajos y altos hay gente con muy buenos resultados académicos. 
 
-```{r}
 
+```{r}
+with(encuesta, plot(Q05_Saber11, Q08_PAPA,main="PAPA vs saber11",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$Q05_Saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
+lines(lowess(subset(encuesta, Q05_Saber11 == "Ingeniería de sistemas e informática")[,c("Q04_Semestre")], subset(encuesta, Q05_Saber11 == "Ingeniería de sistemas e informática")[,c("Q08_PAPA")]), col = "#CC6666", lwd = 2)
+lines(lowess(subset(encuesta, Q005_Saber11 == "Estadística")[,c("Q04_Semestre")], subset(est_ingsis, Q03_Carrera == "Estadística")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
+legend("bottomright" ,legend = c("Estudiantes de Estadística", "Estudiantes de Ingeniería de sistemas e informática"), col = c("Black","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
+```
+
+```{r}
+ 
 ```
 
 ### Estrato socioeconomico VS PAPA y pruebas saber11

@@ -1,0 +1,5 @@
+"0","estrato_etiquetado <- encuesta$Q10_Estrato"
+"0","estrato_etiquetado = factor(estrato_etiquetado,"
+"0","                            levels = levels(estrato_etiquetado),"
+"0","                            labels = c(""Bajo"",""Bajo"",""Medio"",""Medio"",""Alto"",NA),"
+"0","                            ordered = F)"

@@ -3,7 +3,7 @@
     "path": "~/Downloads/01_analisis_exploratorio (1).Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "2129474389",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1618236906196.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "313,33",
-        "scrollLine": "311",
-        "last_setup_crc32": "AF2D554F181e5f16"
+        "cursorPosition": "296,0",
+        "scrollLine": "0",
+        "last_setup_crc32": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1618236904,
+    "lastKnownWriteTime": 1618247883,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1618239176665,
+    "last_content_update": 1618247883475,
     "read_only": false,
     "read_only_alternatives": []
 }

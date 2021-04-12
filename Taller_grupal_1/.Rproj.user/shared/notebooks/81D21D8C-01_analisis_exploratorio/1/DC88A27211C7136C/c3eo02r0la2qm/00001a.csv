@@ -1,0 +1,1 @@
+"0","boxplot(Q08_PAPA~ Q03_Carrera, data = encuesta, col = ""bisque"" , log = ""y"")"
