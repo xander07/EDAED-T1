@@ -1,0 +1,1 @@
+"0","lines(lowess(subset(encuesta, Q10_Estrato == ""Medio"")[,c(""Q05_Saber11"")], subset(encuesta, Q10_Estrato == ""Medio"")[,c(""Q08_PAPA"")]), col = ""bisque"", lwd = 2)"

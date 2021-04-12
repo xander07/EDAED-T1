@@ -539,12 +539,19 @@ a se más bajo sin que haya diferencia significativa.
 
 Pregunta bivariada. Cruce de variable  PAPA, con la carrera  
 
-¿Los estudiantes que tienen mejor PAPA se encuentran en los semestres mas altos?
+¿Los estudiantes que tienen mejor PAPA se encuentran en la carrera de ing en sistemas?
 
 El supuesto que se tiene en esta pregunta es que si, los estudiantes que estan cursando la carrera de ingenieria en sistemas tiene un PAPA mas alto que quienes están cursando estadística, esto debido a que, se podría pensar que los ingenieros en sistemas son mas dedicados ya que su carrera es muy demandada, entonces siempre se seleccionan los mejores, además,saben mas de manejo computacional que un estudiante de estadística. 
 
-Para responder a esta pregunta, en primer lugar lo que hizo fue analizar que carreras están cursando los estudiantes del curso de estadistica descriptiva y exploratoria, para esto se realiza una tabla de frecuencias, contabulizar cuantas personas hay por carreras. 
+Para responder a esta pregunta, en primer lugar lo que hizo fue analizar que carreras están cursando los estudiantes del curso de estadistica descriptiva y exploratoria dentro de las respuestas se encontró diversidad de carreras, de las cuales se destacan estadística, ing de sistemas, ing industrial, ing física, y otra. Cabe destacar, que las carreras que mas número de estudiantes presenta es ing en sistemas y estadistica. De allí, que fueran estas dos las elegidas para realizar el cruce bivariado. 
 
+A continuación se presenta una tabla donde se muestra la cantidad de estudiantes por cada carrera y se saca también el promedio del PAPA. En la carrera de estadísitca hay exactamente 54 estudiantes, y en ing en sistemas 26. Una diferencia que alcanza a ser el doble.Es normal que suceda esto, pues el curso de estadítica descriptiva y exploratoría es obligatorio para quienes estudian estadistica y optativo para quienes hacen otras carreras, de allí que se perciba mayor presencia de los estudiantes de estadística. 
+
+En este sentido, para hallar el Promedio acumulado ponderado (PAPA) que tiene una escala de 1 a 5, se sumó cada PAPA reportado por los estudiantes de estadistica y de ing en sistemas, ambos por separado, y posterioemnte se dividió por la cantidad de personas de las dos carreras
+
+A partir de la tabla que se realizó, se procedió a graficar un boxplot. Donde se muestra, a través de una caja que divide los datos en cuatro cuartiles. El 50% de los estudiantes presentan un PAPA aproximado de 4,03 o menos y los de ing en sistemas de 4,06. Una diferencia demasiado pequeña a lo que se tenía pensado. Entonces, esto nos permite ver que la hipotesis que se planteó es verdadera. Sin embargo, hay que resaltar que la diferencia entre ambas es de tan solo 0,03 centésimas. 
+
+También hay que mencionar que en las dos carreras hay personas con un PAPA de casi 4,6. Mientras que, el valor mínimo de PAPA lo presentan los de estadística con un 3,0 y el de los ingenieros es de mas o menos 3,4. (Ver gráfica 1:  Carrera vs PAPA)
         
 ```{r}
 encuesta_sist_estad <- encuesta %>% 
@@ -564,14 +571,13 @@ encuesta_sist_estad_resumen %>% data.frame()
 ```
 ### Gráfica exploratoria Carrera Vs PAPA
 
-
 ```{r}
 boxplot(Q08_PAPA~ Q03_Carrera, data = encuesta_sist_estad, col = "bisque" , log = "y")
 title("Carrera VS PAPA")
 points(encuesta_sist_estad_resumen$Q03_Carrera, encuesta_sist_estad_resumen$prom_PAPA, col = "red", pch = 19)
 legend("bottomright", legend = c("PromedioPAPA"), pch =19, col = "red")
 ```
-
+A partir de la presente gráfica, 
 
 Pregunta multivariada
 
@@ -581,11 +587,11 @@ En el grupo después de discutir esta pregunta, se llegó a la conclusión, que 
 
 
 ```{r}
-with(encuesta, plot(saber11, Q08_PAPA,main="Saber11 vs PAPA",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
-lines(lowess(subset(encuesta, Q10_Estrato == "Bajo")[,c("saber11")], subset(encuesta, Q10_Estrato == "Bajo")[,c("Q08_PAPA")]), col = "#CC6666", lwd = 2)
-lines(lowess(subset(encuesta, Q10_Estrato == "Medio")[,c("saber11")], subset(encuesta, Q10_Estrato == "Medio")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
-lines(lowess(subset(encuesta, Q10_Estrato == "Alto")[,c("saber11")], subset(encuesta, Q10_Estrato == "Alto")[,c("Q08_PAPA")]), col = "Black", lwd = 2)
-legend("bottomright" ,legend = c("bajo", "Medio", "Alto"), col = c("Black","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
+with(encuesta, plot(Q05_Saber11, Q08_PAPA,main="Saber11 vs PAPA",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$Q05_Saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
+lines(lowess(subset(encuesta, Q10_Estrato == "Bajo")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Bajo")[,c("Q08_PAPA")]), col = "magenta1", lwd = 2)
+lines(lowess(subset(encuesta, Q10_Estrato == "Medio")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Medio")[,c("Q08_PAPA")]), col = "bisque", lwd = 2)
+lines(lowess(subset(encuesta, Q10_Estrato == "Alto")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Alto")[,c("Q08_PAPA")]), col = "cyan", lwd = 2)
+legend("bottomright" ,legend = c("Bajo", "Medio", "Alto"), col = c("Blue","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
 ```
 
 ```{r}

@@ -1,0 +1,1 @@
+"0","with(encuesta, plot(Q05_Saber11, Q08_PAPA,main=""Saber11 vs PAPA"",xlab=""Saber11"", ylab=""PAPA"", col = as.factor(encuesta$Q05_Saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))"
