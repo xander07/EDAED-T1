@@ -1,6 +1,0 @@
-"0","#Unificamos todo en una sola matriz"
-"0",""
-"0","tabla_general <- rbind(c(promedio_joven$promedio),"
-"0","                       c(promedio_adjoven$promedio),"
-"0","                       c(promedio_adulto$promedio))"
-"0",""
