@@ -1,6 +1,0 @@
-"0","# t_gen <- table(encuesta$Q01_Genero)"
-"0","# t_gen"
-"0","# ```"
-"0","# ```{r}"
-"0","# t_gen_p <- t_gen / sum(t_gen) * 100"
-"0","# t_gen_p"

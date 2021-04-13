@@ -1,0 +1,5 @@
+"0","#Unificamos todo en una sola matriz"
+"0",""
+"0","tabla_generos <- rbind(c(promedio_hombre$promedio),"
+"0","                       c(promedio_mujer$promedio))"
+"0",""

@@ -1,0 +1,210 @@
+#### 8. Etiquetamos la variable Q01_Genero como "Masculino,Femenino u Otro".
+
+```{r}
+
+encuesta <- encuesta %>% 
+  mutate(Q01_Genero = as.character(encuesta$Q01_Genero))
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "1 : Masculino" ] <- "Masculino"
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "2 : Femenino" ] <- "Femenino"
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "3 : Otro" ] <- "Otro"
+
+encuesta <- encuesta %>% 
+  mutate(Q01_Genero = as.factor(encuesta$Q01_Genero))
+
+```
+
+## JOHAN
+
+### Seleccionamos el conjunto de datos necesario para responder las preguntas planteadas
+```{r}
+
+gen_edad <- data.frame(estrato_etiquetado,saber11,edad,encuesta$Q01_Genero)
+
+#Aquí filtramos los datos ya que el NA no debe ser tenido en cuenta
+gen_edad <- filter(gen_edad,estrato_etiquetado == "Bajo" |
+                     estrato_etiquetado == "Medio" |
+                     estrato_etiquetado == "Alto")
+
+gen_edad$edad[(gen_edad$edad <= 25)] <- 1
+gen_edad$edad[(25 < gen_edad$edad & gen_edad$edad <= 32)] <- 2
+gen_edad$edad[(32 < gen_edad$edad & gen_edad$edad <= 39)] <- 3
+
+gen_edad <- gen_edad %>% 
+  mutate(edad = as.character(gen_edad$edad))
+
+gen_edad$edad[(gen_edad$edad == "1")] <- "Joven"
+gen_edad$edad[(gen_edad$edad == "2")] <- "Adulto Joven"
+gen_edad$edad[(gen_edad$edad == "3")] <- "Adulto"
+
+
+```
+
+
+
+
+
+### Pregunta 1
+- ¿El puntaje promedio de las pruebas saber 11 es más alto dependiendo del estrato socioeconómico y de la edad?
+
+Despues de una discusión grupal se llegó a la conclusión de que para poder analizar esta pregunta debemos dividir los datos en grupos de la siguiente manera:
+
+- Edad: Se dividió en tres grupos comenzando desde la edad mínima (que es aproximadamente 17 años) hasta la edad máxima (que es de 39 años), se tomo la diferencia entre las edades mínima y máxima y se dividió en 3, dejando los grupos de la siguiente manera:
+  - Joven: Edad de entre 17 a 25 años
+  - Adulto Joven: Edad entre 25 a 32 años
+  - Adulto: Edad entre 32 a 39 años
+  
+- Estrato: Se mantuvo la clasificación previa de estratos (Bajo, Medio, Alto).
+
+- Saber 11: Se promedió los resultados dentro de cada subgrupo para así poder realizar un análisis más sencillamente ya que son muchos datos para analizar uno por uno y poder dar una conclusión acertada.
+
+Predicción: Se espera que los jóvenes de estratos medios tengan un mejor promedio de puntaje de las pruebas Saber 11 ya que éstas personas por su situación económica donde tienen mayor acceso a recursos tecnológicos puden acceder a mayor información y que por su edad, al ser los más jóvenes del curso de Estadística, tendrán mejores resultados debido a que la educación va mejorando y es más avanzada conforme pasan los años.
+
+
+## Análisis numérico
+```{r} 
+#Seleccionamos los datos a analizar para la edad Joven
+
+promedio_joven <- filter(gen_edad,edad=="Joven")
+promedio_joven <- select(promedio_joven,estrato_etiquetado,saber11,edad)
+promedio_joven <- promedio_joven %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+promedio_joven
+```
+
+```{r}
+#Seleccionamos los datos a analizar para la edad Adulto Joven
+promedio_adjoven <- filter(gen_edad,edad=="Adulto Joven")
+promedio_adjoven <- select(promedio_adjoven,estrato_etiquetado,saber11,edad)
+promedio_adjoven <- promedio_adjoven %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+#Añadimos 0 en la columna saber 11 para los estratos que no contiene
+#Esto se hace para tener una matriz de la misma magnitud
+otros <- data.frame(estrato_etiquetado = c("Alto"),
+                    promedio = c(0))
+promedio_adjoven <- rbind(promedio_adjoven,otros)
+promedio_adjoven
+```
+
+```{r}
+#Seleccionamos los datos a analizar para la edad Adulto
+promedio_adulto <- filter(gen_edad,edad=="Adulto")
+promedio_adulto <- select(promedio_adulto,estrato_etiquetado,saber11,edad)
+#Añadimos 0 en la columna saber 11 para los estratos que no contiene
+#Esto se hace para tener una matriz de la misma magnitud
+otro <- data.frame(estrato_etiquetado = c("Bajo","Alto"),
+                   saber11 = c(0,0),
+                   edad=c("Adulto","Adulto"))
+promedio_adulto <- rbind(promedio_adulto,otro)
+promedio_adulto <- promedio_adulto %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+
+promedio_adulto
+```
+### Unificamos los tres subconjuntos anteriores para graficarlos juntos
+```{r}
+#Unificamos todo en una sola matriz
+
+tabla_general <- rbind(c(promedio_joven$promedio),
+                       c(promedio_adjoven$promedio),
+                       c(promedio_adulto$promedio))
+
+```
+
+```{r}
+#Le damos nombre a las columnas y filas
+
+colnames(tabla_general) = c("Bajo","Medio","Alto")
+rownames(tabla_general) = c("Joven","Adulto Joven","Adulto")
+tabla_general
+```
+### Resultados gráficos
+```{r}
+barplot(tabla_general, beside = T,
+        col = c("Orange","Yellow","Blue"),
+        legend.text = row.names(tabla_general),
+        ylim = c(0,500),
+        xlim = c(0,15),
+        main="SABER11xEDADxESTRATO",
+        xlab = "Estrato Socioeconómico",
+        ylab= "Promedio Saber 11")
+```
+### Conclusiones
+
+Como se puede observar en la gráfica anterior, el supuesto del cual partimos era erróneo y podemos ver que en promedio las personas de edad entre los 25 y los 32 años de estrato medio fueron quienes otuvieron un mejor promedio en las pruebas saber 11, cabe resaltar que para el grupo de las personas adultas y de estrato medio una de ellas obtuvo un resultdo de 0 en el saber 11, aunque no es posible determinar si al momento de realizar la encuesta desconocia su puntaje o porque realmente fue lo que obtuvo, puede afectar el resultado previo de modo que sean los adultos estrato medio sean quienes mejor promedio saber 11 tengan o mateniendo el resultado actual.
+
+### Pregunta 2
+
+Si bien pudimos analizar la pregunta anterior dependiendo al estrato y la edad, ahora nos permitiremos realizar un análisis similar:
+
+¿El promedio del puntaje saber 11 es más alto dependiendo del estrato y el género?
+
+Después de una discusión grupal se llegó a la conclusión que trabajaremos con la misma agrupación por estrato y categoría de generos previamente establecida en la depuració, además de que no se tendrá en cuenta el género "Otro" ya que es un único dato, el cuál no aporta mucho a este análisis. Además, el dato que está en la fila con estrato "NA" no será tenido en cuenta por la misma razón.
+
+Predicción: Se espera que las mujeres de estrato medio tengan un mejor promedio de resultados saber 11 ya que en general las mujeres son mucho más dedicadas que los hombres en cuanto a temas académicos y está demostrado que ellas tienen una mayor facilidad para aprender que los hombres, además que para el estrato socioeconómico en el que se encuentran tienen acceso a los recursos necesarios para aprender y motivación suficiente para sacarle provecho.
+
+## Análisis Numérico
+```{r}
+#Seleccionamos los datos de acuerdo al género Femenino
+promedio_mujer <- filter(gen_edad,encuesta.Q01_Genero =="Femenino")
+promedio_mujer <- select(promedio_mujer,estrato_etiquetado,saber11)
+promedio_mujer <- promedio_mujer %>%
+group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+#Añadimos 0 al promedio de mujeres en estrato Alto para que todos los dataframes
+#Tengan la misma dimensión
+ot <- data.frame(estrato_etiquetado = c("Alto"),
+                 promedio = c(0))
+promedio_mujer <- rbind(promedio_mujer,ot)
+promedio_mujer
+```
+
+```{r}
+#Seleccionamos los datos de acuerdo al género Masculino
+promedio_hombre <- filter(gen_edad,encuesta.Q01_Genero =="Masculino")
+promedio_hombre <- select(promedio_hombre,estrato_etiquetado,saber11)
+promedio_hombre <- promedio_hombre %>%
+group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+promedio_hombre
+
+```
+## Unificamos los datos anteriores enuna única matriz
+```{r}
+#Unificamos todo en una sola matriz
+
+tabla_generos <- rbind(c(promedio_hombre$promedio),
+                       c(promedio_mujer$promedio))
+
+```
+
+```{r}
+#Le damos nombre a las columnas y filas
+
+colnames(tabla_generos) = c("Bajo","Medio","Alto")
+rownames(tabla_generos) = c("Hombre","Mujer")
+tabla_generos
+```
+## Resultados Gráficos
+
+```{r}
+barplot(tabla_generos, beside = T,
+        col = c("Green","Black"),
+        legend.text = row.names(tabla_generos),
+        ylim = c(0,500),
+        xlim = c(0,11),
+        main="SABER11xGENEROxESTRATO",
+        xlab = "Estrato Socioeconómico",
+        ylab= "Promedio Saber 11")
+```
+### Conclusiones:
+
+Como podemos observar en la gráfica nuestra predicción fue errónea,podemos notar que el promedio de resultados saber 11 es muy similar para los hombres de estrato bajo y medio, además de que quienes sacaron mejor promedio en los resultados saber 11 fueron los hombres de estrato alto y no las mujeres de estrato medio como se esperaba, de hecho, fue este subgrupo quienes peor promedio de resultados saber 11 obtuvieron.
+
+
+### HASTA AQUÍ VA JOHAN

@@ -1,1 +1,0 @@
-"0","encuesta$Q08_PAPA[encuesta$Q08_PAPA == 45 & !is.na(encuesta$Q08_PAPA)] <- 4.5"
