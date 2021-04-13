@@ -1,0 +1,127 @@
+#### 8. Etiquetamos la variable Q01_Genero como "Masculino,Femenino u Otro".
+
+```{r}
+
+encuesta <- encuesta %>% 
+  mutate(Q01_Genero = as.character(encuesta$Q01_Genero))
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "1 : Masculino" ] <- "Masculino"
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "2 : Femenino" ] <- "Femenino"
+
+encuesta$Q01_Genero[encuesta$Q01_Genero ==	 "3 : Otro" ] <- "Otro"
+
+encuesta <- encuesta %>% 
+  mutate(Q01_Genero = as.factor(encuesta$Q01_Genero))
+
+```
+
+## JOHAN
+
+### Seleccionamos el conjunto de datos necesario para responder las preguntas planteadas
+```{r}
+gen_edad <- data.frame(estrato_etiquetado,saber11,edad,encuesta$Q01_Genero)
+
+gen_edad$edad[(gen_edad$edad <= 25)] <- 1
+gen_edad$edad[(25 < gen_edad$edad & gen_edad$edad <= 32)] <- 2
+gen_edad$edad[(32 < gen_edad$edad & gen_edad$edad <= 39)] <- 3
+gen_edad <- gen_edad %>% 
+  mutate(edad = as.character(gen_edad$edad))
+
+gen_edad$edad[(gen_edad$edad == "1")] <- "Joven"
+gen_edad$edad[(gen_edad$edad == "2")] <- "Adulto Joven"
+gen_edad$edad[(gen_edad$edad == "3")] <- "Adulto"
+```
+
+
+
+
+
+### Pregunta 1
+- ¿El puntaje alto alto de las pruebas saber 11 dependen del estrato socioeconómico y de la edad?
+
+Despues de una discusión grupal se llegó a la conclusión de que para poder analizar esta pregunta debemos dividir los datos en grupos de la siguiente manera:
+
+- Edad: Se dividió en tres grupos comenzando desde la edad mínima (que es aproximadamente 17 años) hasta la edad máxima (que es de 39 años), se tomo la diferencia entre las edades mínima y máxima y se dividió en 3, dejando los grupos de la siguiente manera:
+  - Joven: Edad de entre 17 a 24 años
+  - Adulto Joven: Edad entre 25 a 31 años
+  - Adulto: Edad entre 32 a 39 años
+  
+- Estrato: Se mantuvo la clasificación previa de estratos (Bajo, Medio, Alto).
+
+- Saber 11: Se promedió los resultados dentro de cada subgrupo para así poder realizar un análisis más sencillamente ya que son muchos datos para analizar uno por uno y poder dar una conclusión acertada.
+
+Predicción: Se espera que los jóvenes de estratos medios tengan un mejor promedio de puntaje de las pruebas Saber 11 ya que éstas personas por su situación económica donde tienen mayor acceso a recursos tecnológicos puden acceder a mayor información y que por su edad, al ser los más jóvenes del curso de Estadística, tendrán mejores resultados debido a que la educación va mejorando y es más avanzada conforme pasan los años.
+
+
+```{r} 
+#Seleccionamos los datos a analizar para la edad Joven
+
+promedio_joven <- filter(gen_edad,edad=="Joven")
+promedio_joven <- select(promedio_joven,estrato_etiquetado,saber11,edad)
+promedio_joven <- promedio_joven %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11))
+```
+
+```{r}
+#Seleccionamos los datos a analizar para la edad Adulto Joven
+promedio_adjoven <- filter(gen_edad,edad=="Adulto Joven")
+promedio_adjoven <- select(promedio_adjoven,estrato_etiquetado,saber11,edad)
+promedio_adjoven <- promedio_adjoven %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11, na.rm=TRUE))
+#Añadimos 0 en la columna saber 11 para los estratos que no contiene
+#Esto se hace para tener una matriz de la misma magnitud
+otros <- data.frame(estrato_etiquetado = c("Alto","NA"),
+                    promedio = c(0,0))
+promedio_adjoven <- rbind(promedio_adjoven,otros)
+```
+
+```{r}
+#Seleccionamos los datos a analizar para la edad Adulto
+#promedio_adulto <- filter(gen_edad,edad=="Adulto")
+#promedio_adulto <- select(promedio_adulto,estrato_etiquetado,saber11,edad)
+#Añadimos 0 en la columna saber 11 para los estratos que no contiene
+#Esto se hace para tener una matriz de la misma magnitud
+#otro <- data.frame(estrato_etiquetado = c("Bajo","Alto","NA"),
+#                   saber11 = c(0,0,0),
+#                   edad=c("Adulto","Adulto","Adulto"))
+#promedio_adulto <- rbind(promedio_adulto,otro)
+promedio_adulto <- promedio_adulto %>%
+  group_by(estrato_etiquetado)%>%
+  summarise(promedio=mean(saber11,na.rm=TRUE))
+
+```
+
+```{r}
+#Unificamos todo en una sola matriz
+
+tabla_general <- rbind(c(promedio_joven$promedio),
+                       c(promedio_adjoven$promedio),
+                       c(promedio_adulto$promedio))
+
+```
+
+```{r}
+#Le damos nombre a las columnas y filas
+
+colnames(tabla_general) = c("Bajo","Medio","Alto","NA")
+rownames(tabla_general) = c("Joven","Adulto Joven","Adulto")
+tabla_general
+```
+
+```{r}
+barplot(tabla_general, beside = T,
+        col = c("Orange","Yellow","Blue"),
+        legend.text = row.names(tabla_general),
+        ylim = c(0,500),
+        xlim = c(0,20),
+        main="SABER11xEDADxESTRATO",
+        xlab = "Estrato Socioeconómico",
+        ylab= "Promedio Saber 11")
+```
+
+
+### HASTA AQUÍ VA JOHAN
+

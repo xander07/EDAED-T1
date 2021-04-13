@@ -1,0 +1,56 @@
+"0","glimpse(encuesta)"
+"1","Rows: 87"
+"1",""
+"1","
+"
+"1","Columns: 44"
+"1",""
+"1","
+"
+"1","$ Respuesta                                                                   [3m[38;5;246m<int>[39m[23m ~
+$ Enviado.el.                                                                 [3m[38;5;246m<dttm>[39m[23m ~
+$ Q01_Genero                                                                  [3m[38;5;246m<fct>[39m[23m ~
+$ Q02_FechaNac                                                                [3m[38;5;246m<date>[39m[23m ~
+$ Q03_Carrera                                                                 [3m[38;5;246m<fct>[39m[23m ~
+$ Q04_Semestre                                                                [3m[38;5;246m<dbl>[39m[23m ~
+$ Q05_Saber11                                                                 [3m[38;5;246m<dbl>[39m[23m ~
+$ Q06_PercentilSaber11                                                        [3m[38;5;246m<dbl>[39m[23m ~
+$ Q07_FechaSaber11                                                            [3m[38;5;246m<date>[39m[23m ~
+$ Q08_PAPA                                                                    [3m[38;5;246m<dbl>[39m[23m ~
+$ Q09_EnAreaMetropolitana                                                     [3m[38;5;246m<int>[39m[23m ~
+$ Q10_Estrato                                                                 [3m[38;5;246m<fct>[39m[23m ~
+$ Q11_R                                                                       [3m[38;5;246m<int>[39m[23m ~
+$ Q12_RStudio                                                                 [3m[38;5;246m<int>[39m[23m ~
+$ Q13_NoRoRStudio                                                             [3m[38;5;246m<fct>[39m[23m ~
+$ Q14_RecursosInformaticos..Internet.de.cable.propio                          [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Internet.de.cable.no.propio                       [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Wifi.propio                                       [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Wifi.no.propio                                    [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Celular.sin.datos                                 [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Celular.con.datos                                 [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..PortÃ.til.propio                                  [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..PortÃ.til.no.propio                               [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Computador.de.escritorio.propio.y.exclusivo       [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Computador.de.escritorio.no.propio.pero.exclusivo [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Computador.propio..pero.no.exclusivo              [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Computador.de.escritorio.ni.propio.ni.exclusivo   [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Tablet.sin.datos                                  [3m[38;5;246m<int>[39m[23m ~
+$ Q14_RecursosInformaticos..Tablet.con.datos.                                 [3m[38;5;246m<int>[39m[23m ~
+$ Q15_Alunizaje                                                               [3m[38;5;246m<int>[39m[23m ~
+$ Q16_EspionajeInternet                                                       [3m[38;5;246m<int>[39m[23m ~
+$ Q17_Experimentos                                                            [3m[38;5;246m<int>[39m[23m ~
+$ Q18_Vacunas                                                                 [3m[38;5;246m<int>[39m[23m ~
+$ Q19_EvidenciaFalsa                                                          [3m[38;5;246m<int>[39m[23m ~
+$ Q20_RafagasSolares                                                          [3m[38;5;246m<int>[39m[23m ~
+$ Q21_TierraHueca                                                             [3m[38;5;246m<int>[39m[23m ~
+$ Q22_alienigenas                                                             [3m[38;5;246m<int>[39m[23m ~
+$ Q23_CambioClimatico                                                         [3m[38;5;246m<int>[39m[23m ~
+$ Q24_area                                                                    [3m[38;5;246m<fct>[39m[23m ~
+$ Q25_PorcentArea                                                             [3m[38;5;246m<dbl>[39m[23m ~
+$ Q26_Divisor..f.es.divisor.de.g.2.                                           [3m[38;5;246m<int>[39m[23m ~
+$ Q26_Divisor..f.es.divisor.de.gh.                                            [3m[38;5;246m<int>[39m[23m ~
+$ Q26_Divisor..f.es.divisor.de.h.g                                            [3m[38;5;246m<int>[39m[23m ~
+$ Q27_PorcentDivisor                                                          [3m[38;5;246m<dbl>[39m[23m ~"
+"1",""
+"1","
+"

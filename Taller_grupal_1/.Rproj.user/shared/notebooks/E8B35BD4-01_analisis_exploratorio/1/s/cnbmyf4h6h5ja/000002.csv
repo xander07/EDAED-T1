@@ -1,0 +1,8 @@
+"0","barplot(tabla_general, beside = T,"
+"0","        col = c(""Orange"",""Yellow"",""Blue""),"
+"0","        legend.text = row.names(tabla_general),"
+"0","        ylim = c(0,500),"
+"0","        xlim = c(0,20),"
+"0","        main=""SABER11xEDADxESTRATO"","
+"0","        xlab = ""Estrato Socioeconómico"","
+"0","        ylab= ""Promedio Saber 11"")"

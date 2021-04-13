@@ -1,2 +1,0 @@
-"0","# pie(t_gen_p, labels = paste(names(t_gen_p), round(t_gen_p, 1), ""%""),"
-"0","#     col = c(""blue"", ""red"", ""green3""))"
