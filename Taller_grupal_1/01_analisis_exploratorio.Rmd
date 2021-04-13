@@ -2,7 +2,7 @@
 title: "Análisis exploratorio de la encuesta inicial"
 author: "Kenneth Roy Cabrera Torres"
 date: "Viernes, 26 de marzo de 2021"
-modification: "Jhon Jairo Serna Córdoba, Laura Flórez, Karina Jiménez"
+modification: "Jhon Jairo Serna Córdoba, Laura Flórez, Karina Jiménez, Johan Paniagua, Alex"
 output: 
   html_document: 
     toc: yes
@@ -102,6 +102,7 @@ Q07_FechaSaber11
 ```{r}
 str(encuesta$Q07_FechaSaber11)
 ```
+Como podemos ver, el tipo de dato con el registran las 2 variables ahora es Date, que era lo que buscabamos.
 
 Hay otra vatiable que también tiene tipo fecha, aunque realmente es formato fecha hora (AAAA/MM/DD hh:mm:ss). Detallemos:
 
@@ -109,7 +110,8 @@ enviado.el
 ```{r}
 str(encuesta$Enviado.el.)
 ```
-Debido a esta "variación en el formato para mantenelos de la forma Fecha Hora, el cambio de tipo lo haremos usando la función *as.POSIXct()*.
+
+Debido a esta "variación" en el formato y para mantenelos de la forma Fecha Hora, el cambio de tipo lo haremos usando la función *as.POSIXct()*.
 
 ```{r}
 ## Convertimos la variable Enviado.el. a tipo POSIXct (DATE TIME)
@@ -119,13 +121,28 @@ encuesta <- encuesta %>%
 str(encuesta$Enviado.el.)
 ```
 
+Observemos que ahora el tipo de la variable es de POSIXct, tipo especial de R que nos permitirá trabajar de mejor manera con las variables de formato Fecha Hora.
+
 #### 2. Modificamos las variables que quedan de tipo CHARACTER a FACTOR.
 
 Este cambio se hace pensando en la facilidad del manejo de algunas variables, por ejemplo la variable Q03_Carrera podría ser más fácil de manejar si a cada uno de los datos, que son distintos entre sí, se les asigna un valor númerico distinto. De igual manera sucede con las variables que contienen datos provenientes de respuestas de selección múltiple. Para esta modificación usaremos las función *mutate_if()*.
 
+Vamos a hacer seguimiento del cambio visualizando la variable Q01_Genero que actualmente es de tipo Character, con valores entre "1 : Masuclino", "2 : Femenino" o "3 : Otro", confirmemos el tipo con la función *typeof()* y veámos algunos de los datos de esta variable con la función *tail()*:
+
+```{r}
+typeof(encuesta$Q01_Genero)
+tail(encuesta$Q01_Genero, 10)
+barplot(table(encuesta$Q01_Genero), ylim = c(0, 80), main = "Género")
+```
+Ahora realicemos la modificación de character a factor y visualicemos de nuevo el tipo de dato y algunos datos de la variables Q01_Genero
+
 ```{r}
 encuesta <- encuesta %>% mutate_if(is.character, as.factor)
+typeof(encuesta$Q01_Genero)
+tail(encuesta$Q01_Genero, 10)
+barplot(table(encuesta$Q01_Genero), ylim = c(0, 80), main = "Género")
 ```
+
 
 #### 3. Modificamos la variable estrato con etiquetas "Bajo, Medio, Alto".
 
@@ -161,14 +178,34 @@ encuesta <- encuesta %>% mutate(Q10_Estrato = factor(encuesta$Q10_Estrato,
 # encuesta <- encuesta %>% 
 #   mutate(Q10_Estrato = as.factor(encuesta$Q10_Estrato))
 
-```
-```{r}
+typeof(encuesta$Q10_Estrato)
+tail(encuesta$Q10_Estrato)
 table(encuesta$Q10_Estrato)
 ```
 
 #### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentro del intervalo [0.0,5.0]
+
+Cómo observamos en el resumen global de la base de datos, la variable PAPA tiene un valor que máximo que está por fuera del intervalo real [0.0, 5.0]. Miremos con una gráfica los valores que tiene esta variable para analizar que proceso de depuración se puede realizar.
+
+```{r}
+dotchart(encuesta$Q08_PAPA,main = "PAPA")
+```
+Bueno, como podemos ver, sólo hay un valor que es anormal en la variable Q08_PAPA. Véamos cuál es ese valor usando la función *max()* que nos permitirá ver cuál es el valor máximo que tiene la variable. Debemos tener en cuenta que hay valores faltantes *NA* entre los valores que puede tomar la variable y para el ver cuál es el valor máximo, debemos omitir estos valores.
+
+```{r}
+max(encuesta$Q08_PAPA, na.rm = TRUE)
+```
+Bueno, ahora que sabemos cuál es valor máximo dentro de la variable Q08_PAPA y sabiendo que es el único valor que está por fuera del intervalo real [0.0, 5.0], asumiremos que la persona que lo ingresó, quizás tuvo problemas para ingresar el punto de separación decimal y siendo este el caso, entonces el valor correcto de este PAPA es 4.5. Por tanto, cambiaremos el valor actual 45 a un valor dentro del intervalo real de la variable, es decir, 4.5.
+
 ```{r}
 encuesta$Q08_PAPA[encuesta$Q08_PAPA == 45 & !is.na(encuesta$Q08_PAPA)] <- 4.5
+```
+
+Después de realizado el cambio confirmemos cuál es el valor máximo que contiene la variable Q08_PAPA y después también confirmaremos graficando los datos.
+
+```{r}
+max(encuesta$Q08_PAPA, na.rm = TRUE)
+dotchart(encuesta$Q08_PAPA,main = "PAPA")
 ```
 
 
@@ -177,6 +214,9 @@ encuesta$Q08_PAPA[encuesta$Q08_PAPA == 45 & !is.na(encuesta$Q08_PAPA)] <- 4.5
 Teniendo en cuenta que los puntajes del ICFES registrados en la encuesta pueden tener diferencias en la escala de calificación, dependiendo del año en el que se presentó, hemos decidido unificar las escalas siguiendo las fórmulas implementadas por la UNIMAGDALENA, las cuales están descritas en el sitio web: https://admisiones.unimagdalena.edu.co/inscripcionPRE/conversionICFES.jsp?rnd425615.
 
 Se debe aclarar que la unificación que se hace con las fórmulas mencionadas se ejecuta sobre el puntaje total de la prueba y no sobre los puntajes de cada uno de los módulos que conforman la prueba. En este sentido, se puede tener algún cesgo, ya que los módulos, en distintos años, pueden variar el peso que tienen sobre el puntaje final. No obtaste, nos da un aproximado confiable con el que podemos trabajar.
+
+También debemos aclarar que los valores que son 0 o que registran cómo valores faltantes *NA*, se dejan igual. Además observamos que habían puntajes que no correspondían a la escala del año en el que presentaron el ICFES, sino, que correspondía a la escala actual de la prueba. Esos puntajes los dejaremos igual ya que asumimos que al momento de ingresar los el puntaje, hicieron la conversion a la escala actual.
+
 ```{r}
 saber11 <- vector("integer", length(encuesta$Q05_Saber11))
 for(i in seq_along(encuesta$Q07_FechaSaber11)){
@@ -204,6 +244,7 @@ for(i in seq_along(encuesta$Q07_FechaSaber11)){
 }
 
 encuesta$Q05_Saber11 = saber11
+dotchart(encuesta$Q05_Saber11)
 ```
 
 
