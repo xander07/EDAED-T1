@@ -585,13 +585,14 @@ Pregunta multivariada
 
 En el grupo después de discutir esta pregunta, se llegó a la conclusión, que nada tiene que ver el hecho de pertenecer a determinado estrato con el puntaje de las pruebas saber 11 y el PAPA, pues se ha visto en muchas ocasiones como en los estratos bajos y altos hay gente con muy buenos resultados académicos. 
 
-Con la gráfica que a continuación se presenta, se relacionan las variables pruebas saber11, PAPA y estrato socioeconómico de los estudiantes del curso, y se desea saber con certeza, si el estrtato socioeconimico influye en buenos resultados tanto en las pruebas que realiza el Estado y en la universidad.
+Con la gráfica que a continuación se presenta, se relacionan las variables pruebas saber11, PAPA y estrato socioeconómico de los estudiantes del curso, y se desea saber con certeza, si el estrato socioeconómico influye en buenos resultados tanto en las pruebas que realiza el Estado y en la universidad.
 
-Para la realización del gráfico de dispersión, hay que mencionar que solo se tomaron el estrato 1 y 2 como refrentes, pues la mayoría de personas pertenecen a este estrato, y solo una persona reportó pertenecer al estrato 5. Entonces el tamaño de la muestra de este último es mínima. 
+Para la realización del gráfico de dispersión, hay que mencionar que solo se tomaron el estrato 1 y 2 como referentes, pues la mayoría de personas pertenecen a este estrato, y solo una persona reportó pertenecer al estrato 5. Entonces el tamaño de la muestra de este último es mínima. 
 
-En el gráfico se puede observar, que la dispersión de ambos gráficos es muy similar, habiendo incluso datos que se traslapan. Sin embargo, en el estrato medio hay un dato que muestra que hubo una persona que sacó cero en el icfes, y un promedio aproximado de 3,4. Mientras que, en el estrato bajo, la peor nota de icfes es de 200 y un promedio de 3,3. Tambien hay que resaltar que en ambos gráficos hay personas con muy buen PAPA y resultados en prueba saber. 
+En el gráfico se puede observar, que la dispersión de ambos gráficos es muy similar, habiendo incluso datos que se traslapan. Sin embargo, en el estrato medio hay un dato que muestra que hubo una persona que sacó cero en el icfes, y un promedio aproximado de 3,4. Mientras que, en el estrato bajo, la peor nota de icfes es de 200 y un promedio de 3,3. También hay que resaltar que en ambos gráficos hay personas con muy buen PAPA y resultados en prueba saber. 
 
-A partir entonces, de los resultados obtenidos en la gráfica, podemos concluir que la hipotesis planteada sigue teniendo vigencia. No se puede establecer que quienes están en un mejor estrato son mejores academicamente. 
+A partir entonces, de los resultados obtenidos en la gráfica, podemos concluir que la hipótesis planteada sigue teniendo vigencia. No se puede establecer que quienes están en un mejor estrato son mejores académicamente.
+
 
 
 ```{r}
