@@ -295,10 +295,10 @@ summary(encuesta)
 
 
 ```{r}
-# encuesta_Estrato1 <- encuesta %>% 
-#   filter(Q10_Estrato == "2 : 1")
-# dotchart(encuesta_Estrato1$Q08_PAPA)
-# summary(encuesta_Estrato1$Q08_PAPA)
+ encuesta_Estrato1 <- encuesta %>% 
+  filter(Q10_Estrato == "bajo")
+ dotchart(encuesta_Estrato1$Q08_PAPA)
+summary(encuesta_Estrato1$Q08_PAPA)
 ```
 
 
@@ -588,16 +588,25 @@ En el grupo después de discutir esta pregunta, se llegó a la conclusión, que 
 
 
 ```{r}
-with(encuesta, plot(Q05_Saber11, Q08_PAPA,main="Saber11 vs PAPA",xlab="Saber11", ylab="PAPA", col = as.factor(encuesta$Q05_Saber11),pch=19, ylim=c(3,4.7),xlim=c(1,8)))
-lines(lowess(subset(encuesta, Q10_Estrato == "Bajo")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Bajo")[,c("Q08_PAPA")]), col = "magenta1", lwd = 2)
-lines(lowess(subset(encuesta, Q10_Estrato == "Medio")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Medio")[,c("Q08_PAPA")]), col = "bisque", lwd = 2)
-lines(lowess(subset(encuesta, Q10_Estrato == "Alto")[,c("Q05_Saber11")], subset(encuesta, Q10_Estrato == "Alto")[,c("Q08_PAPA")]), col = "cyan", lwd = 2)
-legend("bottomright" ,legend = c("Bajo", "Medio", "Alto"), col = c("Blue","#cc6666"), pch = c(19, 19), cex = 0.7, box.lwd = 1)
+encuesta_Estrato1 <- encuesta %>% 
+  filter(Q10_Estrato == "Bajo")
 ```
 
 ```{r}
- 
+encuesta_Estrato2 <- encuesta %>%
+  filter(Q10_Estrato == "Medio")
 ```
+ 
+```{r}
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2))
+with(encuesta_Estrato1, scatter.smooth(Q05_Saber11, Q08_PAPA,main="Saber11 y PAPA vs Estrato bajo ",xlab="Icfes", ylab="PAPA",pch=19, ylim=c(3,5),xlim=c(0,500), col = "bisque1"))
+
+with(encuesta_Estrato2, scatter.smooth(Q05_Saber11, Q08_PAPA,main="Saber11 y PAPA vs Estrato medio",xlab="Icfes", ylab="PAPA",pch=19, ylim=c(3,5),xlim=c(0,500), col = "cadetblue"))
+par(op)
+```
+
+
 
 ### Estrato socioeconomico VS PAPA y pruebas saber11
 

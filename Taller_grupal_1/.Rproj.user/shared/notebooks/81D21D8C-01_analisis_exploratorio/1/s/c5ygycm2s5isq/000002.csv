@@ -1,0 +1,2 @@
+"0","encuesta_Estrato2 <- encuesta %>%"
+"0","  filter(Q10_Estrato == ""Medio"")"

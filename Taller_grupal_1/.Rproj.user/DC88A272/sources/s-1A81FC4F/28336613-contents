@@ -302,7 +302,7 @@ encuesta_sist_estad <- encuesta %>%
 encuesta_sist_estad_resumen <- encuesta_sist_estad %>%
   group_by(Q03_Carrera) %>% 
   mutate(num_estud_carrera = n()) %>% 
-  group_by(Q03_Carrera, num_estud_carrera) %>% 
+  group_by(Carrera_instala, num_estud_carrera) %>% 
   summarise(num_estud_noNA = sum(!is.na(Q08_PAPA)),
             prom_PAPA = mean(Q08_PAPA, na.rm = TRUE),
             desv_PAPA = sd(Q08_PAPA, na.rm = TRUE)) %>% 
