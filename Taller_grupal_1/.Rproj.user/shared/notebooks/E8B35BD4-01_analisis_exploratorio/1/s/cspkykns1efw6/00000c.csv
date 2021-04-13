@@ -3,6 +3,7 @@
 "0","gen_edad$edad[(gen_edad$edad <= 25)] <- 1"
 "0","gen_edad$edad[(25 < gen_edad$edad & gen_edad$edad <= 32)] <- 2"
 "0","gen_edad$edad[(32 < gen_edad$edad & gen_edad$edad <= 39)] <- 3"
+"0",""
 "0","gen_edad <- gen_edad %>% "
 "0","  mutate(edad = as.character(gen_edad$edad))"
 "0",""

@@ -179,6 +179,7 @@ divisor = if_else(encuesta$Q26_Divisor..f.es.divisor.de.g.2.==1 & encuesta$Q26_D
 divisor
 
 ```
+
 #### 8. Etiquetamos la variable Q01_Genero como "Masculino,Femenino u Otro".
 
 ```{r}
@@ -702,6 +703,7 @@ gen_edad <- data.frame(estrato_etiquetado,saber11,edad,encuesta$Q01_Genero)
 gen_edad$edad[(gen_edad$edad <= 25)] <- 1
 gen_edad$edad[(25 < gen_edad$edad & gen_edad$edad <= 32)] <- 2
 gen_edad$edad[(32 < gen_edad$edad & gen_edad$edad <= 39)] <- 3
+
 gen_edad <- gen_edad %>% 
   mutate(edad = as.character(gen_edad$edad))
 

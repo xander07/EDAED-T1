@@ -1,0 +1,6 @@
+"0","#Seleccionamos los datos a analizar para la edad Adulto Joven"
+"0","promedio_adjoven <- filter(gen_edad,edad==""Adulto Joven"")"
+"0","promedio_adjoven <- select(promedio_adjoven,estrato_etiquetado,saber11,edad)"
+"2","Error in select(promedio_adjoven, estrato_etiquetado, saber11, edad) : 
+  no se pudo encontrar la función ""select""
+"

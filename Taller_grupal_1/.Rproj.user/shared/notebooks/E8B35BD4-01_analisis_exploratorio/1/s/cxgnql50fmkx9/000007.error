@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error in select(promedio_adjoven, estrato_etiquetado, saber11, edad) : \n  no se pudo encontrar la función \"select\"\n"}
