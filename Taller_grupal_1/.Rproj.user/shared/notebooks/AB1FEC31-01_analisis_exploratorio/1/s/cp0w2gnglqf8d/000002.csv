@@ -1,0 +1,7 @@
+"0","#Seleccionamos los datos de acuerdo al género Masculino"
+"0","promedio_hombre <- filter(gen_edad,encuesta.Q01_Genero ==""Masculino"")"
+"0","promedio_hombre <- select(promedio_hombre,estrato_etiquetado,saber11)"
+"0","promedio_hombre <- promedio_hombre %>%"
+"0","group_by(estrato_etiquetado)%>%"
+"0","  summarise(promedio=mean(saber11))"
+"0",""
