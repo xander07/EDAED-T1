@@ -3,9 +3,9 @@
     "path": "C:/Users/USUARIO/OneDrive - Universidad Nacional de Colombia/Escritorio/intento johan.Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "979103926",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1618286412686.0,
     "source_on_save": false,
     "relative_order": 2,
@@ -16,11 +16,11 @@
         "scrollLine": "149"
     },
     "folds": "",
-    "lastKnownWriteTime": 1618294486,
+    "lastKnownWriteTime": 1618346569,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1618343141596,
+    "last_content_update": 1618346569832,
     "read_only": false,
     "read_only_alternatives": []
 }
