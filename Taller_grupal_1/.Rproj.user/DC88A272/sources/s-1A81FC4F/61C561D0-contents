@@ -553,13 +553,14 @@ En este sentido, para hallar el Promedio acumulado ponderado (PAPA) que tiene un
 A partir de la tabla que se realizó, se procedió a graficar un boxplot. Donde se muestra, a través de una caja que divide los datos en cuatro cuartiles. El 50% de los estudiantes presentan un PAPA aproximado de 4,03 o menos y los de ing en sistemas de 4,06. Una diferencia demasiado pequeña a lo que se tenía pensado. Entonces, esto nos permite ver que la hipotesis que se planteó es verdadera. Sin embargo, hay que resaltar que la diferencia entre ambas es de tan solo 0,03 centésimas. 
 
 También hay que mencionar que en las dos carreras hay personas con un PAPA de casi 4,6. Mientras que, el valor mínimo de PAPA lo presentan los de estadística con un 3,0 y el de los ingenieros es de mas o menos 3,4. (Ver gráfica 1:  Carrera vs PAPA)
-        
+
+### Resumen numérico 
+ 
 ```{r}
 encuesta_sist_estad <- encuesta %>% 
   filter(Q03_Carrera %in% c("2 : Ingeniería de sistemas e informática",
                             "3 : Estadística")) %>% 
   droplevels()
-
 encuesta_sist_estad_resumen <- encuesta_sist_estad %>%
   group_by(Q03_Carrera) %>% 
   mutate(num_estud_carrera = n()) %>% 
@@ -570,6 +571,7 @@ encuesta_sist_estad_resumen <- encuesta_sist_estad %>%
   mutate(porcent_x_carrera = num_estud_noNA / num_estud_carrera * 100)
 encuesta_sist_estad_resumen %>% data.frame()
 ```
+
 ### Gráfica exploratoria Carrera Vs PAPA
 
 ```{r}
@@ -589,11 +591,22 @@ Con la gráfica que a continuación se presenta, se relacionan las variables pru
 
 Para la realización del gráfico de dispersión, hay que mencionar que solo se tomaron el estrato 1 y 2 como referentes, pues la mayoría de personas pertenecen a este estrato, y solo una persona reportó pertenecer al estrato 5. Entonces el tamaño de la muestra de este último es mínima. 
 
-En el gráfico se puede observar, que la dispersión de ambos gráficos es muy similar, habiendo incluso datos que se traslapan. Sin embargo, en el estrato medio hay un dato que muestra que hubo una persona que sacó cero en el icfes, y un promedio aproximado de 3,4. Mientras que, en el estrato bajo, la peor nota de icfes es de 200 y un promedio de 3,3. También hay que resaltar que en ambos gráficos hay personas con muy buen PAPA y resultados en prueba saber. 
 
-A partir entonces, de los resultados obtenidos en la gráfica, podemos concluir que la hipótesis planteada sigue teniendo vigencia. No se puede establecer que quienes están en un mejor estrato son mejores académicamente.
+### Resumen numérico Estrato Vs Saber 11 
 
+```{r}
+estratos_sin_na <- encuesta %>%
+  filter(Q10_Estrato == "Medio" | Q10_Estrato == "Bajo")
+  
 
+tabla_Saber11 <- estratos_sin_na %>%
+  group_by(Q10_Estrato) %>% 
+  summarise(num_estud = sum(!is.na(Q05_Saber11)),
+            prom_Saber = mean(Q05_Saber11, na.rm = TRUE),
+            desv_Saber = sd(Q08_PAPA, na.rm = TRUE)) 
+tabla_Saber11 <- data.frame(tabla_Saber11)
+tabla_Saber11
+```
 
 ```{r}
 encuesta_Estrato1 <- encuesta %>% 
@@ -604,7 +617,8 @@ encuesta_Estrato1 <- encuesta %>%
 encuesta_Estrato2 <- encuesta %>%
   filter(Q10_Estrato == "Medio")
 ```
- 
+### Gráfica Estrato socioeconomico VS PAPA y pruebas saber11 
+
 ```{r}
 op <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
@@ -613,11 +627,9 @@ with(encuesta_Estrato1, scatter.smooth(Q05_Saber11, Q08_PAPA,main="Saber11 y PAP
 with(encuesta_Estrato2, scatter.smooth(Q05_Saber11, Q08_PAPA,main="Saber11 y PAPA vs Estrato medio",xlab="Icfes", ylab="PAPA",pch=19, ylim=c(3,5),xlim=c(0,500), col = "cadetblue"))
 par(op)
 ```
+En el gráfico se puede observar, que la dispersión de ambos gráficos es muy similar, habiendo incluso datos que se traslapan. Sin embargo, en el estrato medio hay un dato que muestra que hubo una persona que sacó cero en el icfes, y un promedio aproximado de 3,4. Mientras que, en el estrato bajo, la peor nota de icfes es de 200 y un promedio de 3,3. También hay que resaltar que en ambos gráficos hay personas con muy buen PAPA y resultados en prueba saber. 
 
-
-
-### Estrato socioeconomico VS PAPA y pruebas saber11
-
+A partir entonces, de los resultados obtenidos en la gráfica, podemos concluir que la hipótesis planteada sigue teniendo vigencia. No se puede establecer que quienes están en un mejor estrato son mejores académicamente.
 
 
 ### HASTA AQUÍ VA KARINA

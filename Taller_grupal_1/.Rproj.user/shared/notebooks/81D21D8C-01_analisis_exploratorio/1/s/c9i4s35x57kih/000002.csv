@@ -2,7 +2,6 @@
 "0","  filter(Q03_Carrera %in% c(""2 : Ingeniería de sistemas e informática"","
 "0","                            ""3 : Estadística"")) %>% "
 "0","  droplevels()"
-"0",""
 "0","encuesta_sist_estad_resumen <- encuesta_sist_estad %>%"
 "0","  group_by(Q03_Carrera) %>% "
 "0","  mutate(num_estud_carrera = n()) %>% "
