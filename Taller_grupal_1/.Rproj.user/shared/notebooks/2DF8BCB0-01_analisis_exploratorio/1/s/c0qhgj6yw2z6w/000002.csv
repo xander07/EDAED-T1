@@ -1,0 +1,2 @@
+"0","## Lectura de una base de datos tipo "".csv"""
+"0","encuesta <- read.csv(""encuesta1.csv"")"

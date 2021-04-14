@@ -1,0 +1,4 @@
+"0","boxplot(Q08_PAPA~ Q03_Carrera, data = encuesta_sist_estad, col = ""bisque"" , log = ""y"")"
+"2","Error in boxplot.default(split(mf[[response]], mf[-response], drop = drop,  : 
+  invalid first argument
+"

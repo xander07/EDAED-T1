@@ -1,8 +1,0 @@
-"0","#Seleccionamos los datos a analizar para la edad Joven"
-"0",""
-"0","promedio_joven <- filter(gen_edad,edad==""Joven"")"
-"0","promedio_joven <- select(promedio_joven,estrato_etiquetado,saber11,edad)"
-"0","promedio_joven <- promedio_joven %>%"
-"0","  group_by(estrato_etiquetado)%>%"
-"0","  summarise(promedio=mean(saber11))"
-"0","promedio_joven"
