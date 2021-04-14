@@ -1,2 +1,0 @@
-"0","# Cálculo de la edad"
-"0","edad <- as.numeric(as.Date(""2021-06-30"") - encuesta$Q02_FechaNac)/365.25"

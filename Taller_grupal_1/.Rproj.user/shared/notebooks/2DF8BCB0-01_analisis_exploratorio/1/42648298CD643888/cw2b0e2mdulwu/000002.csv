@@ -1,6 +1,0 @@
-"0",""
-"0","gen_estr_papa <- na.exclude(encuesta)"
-"0",""
-"0","gen_estr_papa <- select(gen_estr_papa, Q01_Genero, Q10_Estrato, Q08_PAPA)"
-"0",""
-"0","gen_estr_papa"

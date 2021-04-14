@@ -1,2 +1,0 @@
-"0",""
-"0","with(encuesta_Estrato2, scatter.smooth(Q05_Saber11, Q08_PAPA,main=""Saber11 y PAPA vs Estrato medio"",xlab=""Icfes"", ylab=""PAPA"",pch=19, ylim=c(3,5),xlim=c(0,500), col = ""cadetblue""))"

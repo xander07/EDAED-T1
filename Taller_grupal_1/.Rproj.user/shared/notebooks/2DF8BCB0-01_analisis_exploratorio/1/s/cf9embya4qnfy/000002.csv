@@ -1,1 +1,0 @@
-"0","# with(encuesta, plot(Q01_Genero, Q08_PAPA, notch = TRUE))"

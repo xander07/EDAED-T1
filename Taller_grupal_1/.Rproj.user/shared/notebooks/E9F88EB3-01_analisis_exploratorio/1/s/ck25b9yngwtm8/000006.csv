@@ -1,0 +1,6 @@
+"0","# Cálculo de la edad"
+"0","edad <- as.numeric(as.Date(""2021-06-30"") - encuesta$Q02_FechaNac)/365.25"
+"0",""
+"0","```{r}"
+"2","Error: attempt to use zero-length variable name
+"

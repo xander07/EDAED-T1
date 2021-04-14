@@ -1,2 +1,0 @@
-"0","# bp1 <- barplot(t_gen_p, las = 1, ylim = c(0, 100), col = ""lightgreen"")"
-"0","# text(bp1, t_gen_p + 10, paste(round(t_gen_p, 1), ""%""))"

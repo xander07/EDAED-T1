@@ -1,3 +1,0 @@
-"0","op <- par(no.readonly = TRUE)"
-"0","par(mfrow = c(1, 2))"
-"0","with(encuesta_Estrato1, scatter.smooth(Q05_Saber11, Q08_PAPA,main=""Saber11 y PAPA vs Estrato bajo "",xlab=""Icfes"", ylab=""PAPA"",pch=19, ylim=c(3,5),xlim=c(0,500), col = ""bisque1""))"

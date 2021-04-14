@@ -1,6 +1,0 @@
-"0","max(encuesta$Q08_PAPA, na.rm = TRUE)"
-"1","[1]"
-"1"," 4.7"
-"1","
-"
-"0","dotchart(encuesta$Q08_PAPA,main = ""PAPA"")"

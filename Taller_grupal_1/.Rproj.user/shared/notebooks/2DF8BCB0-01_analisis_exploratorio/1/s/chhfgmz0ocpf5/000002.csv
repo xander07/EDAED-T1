@@ -1,7 +1,0 @@
-"0","## Convertimos la variable Q02_FechaNac a tipo DATE"
-"0","encuesta <- encuesta %>% "
-"0","  mutate(Q02_FechaNac = as.Date(as.character(Q02_FechaNac), ""%Y-%m-%d""))"
-"0",""
-"0","## Convertimos la variable Q07_FechaSaber11 a tipo DATE"
-"0","encuesta <- encuesta %>% "
-"0","  mutate(Q07_FechaSaber11 = as.Date(as.character(Q07_FechaSaber11),""%Y-%m-%d""))"
