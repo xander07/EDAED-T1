@@ -1,0 +1,7 @@
+"0","## Creamos la variable area que contiene la variable Q24_area etiquetada como ""Correcto/Incorrecto""  "
+"0","area <- encuesta$Q24_area"
+"0","area = factor(area, "
+"0","              levels = levels(area),"
+"0","              labels = c(""Incorrecto"",""Incorrecto"",""Incorrecto"",""Correcto"",""Incorrecto"",""Incorrecto""),"
+"0","              ordered = F)"
+"0",""

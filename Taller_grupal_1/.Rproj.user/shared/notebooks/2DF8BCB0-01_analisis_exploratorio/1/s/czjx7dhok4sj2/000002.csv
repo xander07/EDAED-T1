@@ -1,0 +1,7 @@
+"0","# m_gen_p <- as.matrix(t_gen_p)"
+"0","# bp2 <- barplot(m_gen_p, beside = FALSE, xlim = c(0, 4),"
+"0","#                ylim = c(0, 110),"
+"0","#                col = c(""blue"", ""red"", ""green3""))"
+"0","# text(1.3, cumsum(m_gen_p) - m_gen_p/2, "
+"0","#      paste(rownames(m_gen_p), round((m_gen_p), 1), ""%""),"
+"0","#      adj = 0)"

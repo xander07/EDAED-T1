@@ -774,7 +774,8 @@ A partir entonces, de los resultados obtenidos en la gráfica, podemos concluir 
 ### HASTA AQUÍ VA KARINA
 
 ## LAURA
-Pregunta Bivariada
+
+##Pregunta Bivariada
 
 ¿Qué estrato tienen mejor PAPA?
 
@@ -808,8 +809,11 @@ tabla_PAPA
       points(Q10_Estrato, prom_PAPA, 
             col = "red", pch = 19))
 ```
+En la tabla se puede observar la cantidad de estudiantes por estatos bajo, medio y alto, con su promedio PAPA.
+En la grafica podemos ver que si hay  diferencia entre los desempeños academicos por estratos, tambien vemos que el intervalo de confianza del estrato bajo es mas grande que el intervalo de confianza del estrato medio, ya que hay mas cantidad de personas en estrato medio que en el bajo. Podemos ver que solamente hay una persona en estrato alto con un buen promedio PAPA que es de 4,3. Sin embargo los de estrato bajo y medio la gran mayoria tiene buen promedio PAPA por lo que para los dos estratos su mediana es más de 4,0.
 
-Pregunta Multivariada
+
+##Pregunta Multivariada
 
 ¿El genero que tiene mejor promedio PAPA depende del estrato en que este?
 
@@ -829,6 +833,7 @@ gen_estr_papa
 ```{r}
 
 ```
+
 
 
 

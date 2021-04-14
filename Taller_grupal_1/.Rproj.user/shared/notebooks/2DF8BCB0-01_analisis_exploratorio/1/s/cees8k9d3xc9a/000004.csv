@@ -1,0 +1,3 @@
+"0"," with(tabla_PAPA, "
+"0","      points(Q10_Estrato, prom_PAPA, "
+"0","            col = ""red"", pch = 19))"
