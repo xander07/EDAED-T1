@@ -1,8 +1,7 @@
 ---
 title: "Análisis exploratorio de la encuesta inicial"
-author: "Kenneth Roy Cabrera Torres"
-date: "Viernes, 26 de marzo de 2021"
-modification: "Jhon Jairo Serna Córdoba, Laura Flórez, Karina Jiménez, Johan Paniagua, Alex"
+author: "Jhon J. Serna, Laura Flórez, Karina Jiménez, Johan Paniagua & Alex"
+date: "Miércoles, 14 de abril de 2021"
 output: 
   html_document: 
     toc: yes
@@ -15,13 +14,21 @@ knitr::opts_chunk$set(
 	warning = FALSE)
 ```
 
+El día 24 de febrero de 2021, se inició con la primera clase del curso de estadística de descriptiva, en la que, el profesor del curso preparó una encuesta con 44 preguntas que indagaban sobre temas diversos, que en algún momento fueron un tanto desconcertantes. La encuesta debía ser respondida por cada uno de los inscritos al curso y el profesor dispuso un tiempo de 15 minutos para esta actividad. 
+
+Así, son justamente esos datos recolectados en la encuesta de la primera clase, los que dan vida a este primer trabajo en grupo, pues, sobre ellos debemos realizar una análisis descriptivo y exploratorio, además, de resolver un entramado de 10 preguntas propuestas por los integrantes de cada grupo de trabajo y que deben estar asociadas a las variables contenidas en la base de datos generada por la encuesta.
+
+
 ## Librerías y lectura de la BD
+
+Inicalmente, para este trabajo grupal usaremos una sóla librería adicional a las librerías que incluye por defecto R. Esta librería es **"tidyverse"** y nos facilitará el manejo de las variables a través del código que realicemos en el desarrollo de este trabajo.
 
 ```{r}
 ## Paquetes usados en el análisis.
 library(tidyverse)
 ```
-El día 24 de febrero de 2021, se inició con la primera clase del curso de estadística de descriptiva de 8 a 10 am. En ese lapso de tiempo, el profesor del curso preparó una encuesta de 44 preguntas para cada uno de los matriculados sobre temas muy diversos. A partir justamente de esos datos recolectados, se propuso como primera actividad grupal realizar una análisis descriptivo y exploratorio usando esta base de datos. En la actividad hay que resolver un entramado de 10 preguntas. A medida que se avance en este documento se podrá observar el desarrollo de cada una.  
+
+Por otra parte, la base de datos que nos fue asignada, viene en formato **CVS**, por lo que, usaremos la función **read.cvs())** que nos ofrece R para importar los datos y así poder trabar de manera local.
 
 ```{r}
 ## Lectura de una base de datos tipo ".csv"
@@ -29,59 +36,58 @@ encuesta <- read.csv("encuesta1.csv")
 ```
 
 
-
 ## Visualización inicial de los datos
 
-Esta visualización es de gran importancia, pues nos permitirá definir si nuestra base de datos necesita o no de un proceso de depuración. Con este primer acercamiento observaremos la cantidad de registros, detalles como el tipo y la estructura de los datos que conforman nuestra base de datos, lo cual, nos ayudará a detectar las anomalías o errores más evidentes que pueden afectar los resultados del análísis que haremos posteriormente.
+Una vez importada la base de datos, la visualización es de gran importancia, pues nos permitirá definir si nuestra base de datos necesita o no de un proceso de depuración. Con este primer acercamiento observaremos la cantidad de registros, detalles como el tipo y la estructura de los datos que conforman nuestra base de datos, lo cual, nos ayudará a detectar las anomalías o errores más evidentes que pueden afectar los resultados del análísis que haremos posteriormente.
 
-#### Visualización de la estructura general de la BD
+### Estructura general de la BD
 
-Para esta visualización usaremos las función *glimpse()* que nos ofrece información general de nuestra base de datos como cantidad de datos, cantidad de variables y algunos detalles de las mismas. Veámos:
+Para generar una vista de la estructura de nuestra base de datos, usaremos las función **glimpse()** que nos ofrece información general como cantidad de datos, cantidad de variables y algunos detalles de las mismas. Veámos:
 
 ```{r}
 ## Vista de la estructura general de la BD.
 glimpse(encuesta)
 ```
 
-En esta primera visualización nos centraremos en el tipo de dato de cada una de las variables (Columnas de la BD) para determinar si son acordes o lógicos, según nuestro criterio o necesidad. Por ejemplo, las variables que tienen formato de fecha tienen un tipo de dato apropiado para texto (Character) pero no para fechas (Date). Esta será una de las modificaciones en el proceso de depuración.
+En esta primera visualización nos centraremos en el tipo de dato de cada una de las variables (Columnas de la BD) para determinar si son acordes a lo que requerimos o lógicos según nuestro criterio. Por ejemplo, observando los resultados anteriores, las variables que tienen formato de fecha tienen un tipo de dato apropiado para texto como lo es el tipo *Character*, pero este tipo no lo es para las fechas, ya que para estas exite un tipo llamado *Date*. Sólo con esta observación ya sabemos que nuestra base de datos de por lo menos una modificación como proceso de depuración.
 
-Otras variables como Género y Carrera que son de tipo Character, podríamos cambiarlas a tipo Factor, buscando facilitar su manejo en el proceso de análisis.
+Otras variables como Género y Carrera que son de tipo *Character*, podríamos cambiarlas a tipo *Factor*, buscando facilitar su manejo en el proceso de análisis.
 
-Más adelante, en el proceso de depuración, veremos más detalladamente las variables que modificaremos para realizar nuestro análisis, pues ya habremos definido con cuáles vamos a trabajar. Por ahora, veámos un resumen de nuestra base de datos:
+Más adelante, en el proceso de depuración, veremos más detalladamente las variables que modificaremos para realizar nuestro análisis, pues ya habremos definido con cuáles vamos a trabajar. Por ahora, visualicemos un poco más nuestra base de datos. Veámos un resumen de cada una de las variables que contiene:
 
 #### Resumen general de los datos que tenemos en la BD
 
-Para generar el resumen de la base de datos usaremos la función *summary()* de R,que nos ofrece un resumen global de nuestra base de datos.
+Para generar el resumen de la base de datos, usaremos la función **summary()** de R que nos ofrece un resumen global de nuestra base de datos.
 
 ```{r}
 summary(encuesta)
 ```
 
-Como observamos, el resumen global de la base de datos nos permite observar, en las variables cualitativas, la cantidad de registros, mientras en las variables cuantitativas, nos muestra algunas estadísticas básicas como la media, la mediana, el valor máximo y mínimo, los cuartiles, cantidad de datos faltantes, etc., ayudándonos a detectar qué variables, como la Q09_EnAreaMetropolitana o Q14_RecursosInformáticos, deberían ser de tipo Factor, por ejemplo, y no de tipo Numérico.
+Como observamos, el resumen global de la base de datos nos permite detectar rápidamente, en las variables cualitativas, la cantidad de registros que tienen y el tipo al que pertenecen, mientras que, en las variables cuantitativas, nos muestra algunas estadísticas básicas como la media, la mediana, el valor máximo y mínimo, los cuartiles, cantidad de datos faltantes, etc., ayudándonos a determinar qué variables pueden requerir modificaciones. Un ejemplo rápido serían las variables Q09_EnAreaMetropolitana o Q14_RecursosInformáticos, que podría ser mejor tenerlas de tipo *Factor* y no de tipo *Numérico*, pues datos como la media y la mediana de estas variables no son importantes para lo que estas variables representan.
 
-Este resumen nos permite observar algunos valores atípicos, como por ejemplo, el valor máximo en la variable Q08_PAPA que es 45, superando el rango lógico [0.0, 5.0] al cual debería pertenecer.
+Este resumen también nos permite observar algunos valores atípicos, como por ejemplo, el valor máximo en la variable Q08_PAPA que es **45**, superando el rango real **[0.0, 5.0]** que conocemos y al cual debería pertenecer.
 
-Así, con toda la información que nos brinda la visualización general de nuestra base de datos y después de definir las variables con las que vamos a trabajar, entonces podemos empezar el proceso de depuración de nuestra base de datos.
+De esta manera, con toda la información que nos brinda la visualización general de nuestra base de datos y después de definir algunos criterios para nuestras variables, podemos iniciar el proceso de depuración en donde podremos detallar un poco más el porque de cada modificación.
 
 ## Depuración de los datos
 
-#### 1. Cambiamos los datos que tienen formato fecha de CHARACTER a DATE.
+### 1. Cambiamos los datos que tienen formato fecha de CHARACTER a DATE.
 
-Este cambio lo realizamos con el fin de facilitar el manejo de las fechas, aprovechando las funciones que nos ofrece R para usar con las variables de tipo *date*.
+Este cambio lo realizamos con el fin de facilitar el manejo de las fechas, aprovechando las funciones que nos ofrece R al trabajar con variables de tipo *date*.
 
-Confirmemos que las variables que tienen formato fecha (AAAA-MM-DD), efectivamente, sean de tipo distinto a *date*. Para realizar esto, usaremos las función *str()* que nos ofrece R, sobre cada una de las variables y así observar, además del tipo, algunos detalles adicionales.
+Primero, confirmemos que las variables que tienen formato fecha **(AAAA-MM-DD)**, efectivamente, sean de tipo distinto a *date*. Para realizar esto, usaremos las función **str()** que nos ofrece R, y así observar, además del tipo, algunos detalles adicionales.
 
-Q02_FechaNac
+**Variable:** Q02_FechaNac
 ```{r}
 str(encuesta$Q02_FechaNac)
 ```
 
-Q07_FechaSaber11
+**Variable:** Q07_FechaSaber11
 ```{r}
 str(encuesta$Q07_FechaSaber11)
 ```
 
-Ahora que confirmamos que estas variables no son del tipo DATE que queremos, modifiquemos el tipo usando la función *as.Date()* de R y confirmemos el cambio, usando nuevamente la funcioón *str()*.
+Ahora que confirmamos que estas variables no son del tipo *Date* que queremos, modifiquemos el tipo usando la función **as.Date()** de R y verifiquemos el cambio, usando nuevamente la funcioón *str()*.
 
 ```{r}
 ## Convertimos la variable Q02_FechaNac a tipo DATE
@@ -93,35 +99,41 @@ encuesta <- encuesta %>%
   mutate(Q07_FechaSaber11 = as.Date(as.character(Q07_FechaSaber11),"%Y-%m-%d"))
 ```
 
-Q02_FechaNac
+**Variable:** Q02_FechaNac
 ```{r}
 str(encuesta$Q02_FechaNac)
 ```
 
-Q07_FechaSaber11
+**Variable:** Q07_FechaSaber11
 ```{r}
 str(encuesta$Q07_FechaSaber11)
 ```
+
 Como podemos ver, el tipo de dato con el registran las 2 variables ahora es Date, que era lo que buscabamos.
 
-Hay otra vatiable que también tiene tipo fecha, aunque realmente es formato fecha hora (AAAA/MM/DD hh:mm:ss). Detallemos:
+Hay otra vatiable que también tiene formato fecha, aunque realmente es formato fecha / hora **(AAAA/MM/DD hh:mm:ss)**. Detallemos:
 
-enviado.el
+**Variable:** Enviado.el.
 ```{r}
 str(encuesta$Enviado.el.)
 ```
 
-Debido a esta "variación" en el formato y para mantenelos de la forma Fecha Hora, el cambio de tipo lo haremos usando la función *as.POSIXct()*.
+Debido a esta "variación" en el formato y para mantenerlo de la forma fecha / hora, el cambio de tipo lo haremos usando la función *as.POSIXct()*.
 
 ```{r}
 ## Convertimos la variable Enviado.el. a tipo POSIXct (DATE TIME)
 encuesta <- encuesta %>% 
   mutate(Enviado.el. = as.POSIXct(strptime(Enviado.el., format = "%d/%m/%Y %H:%M:%S")))
 
-str(encuesta$Enviado.el.)
 ```
 
-Observemos que ahora el tipo de la variable es de POSIXct, tipo especial de R que nos permitirá trabajar de mejor manera con las variables de formato Fecha Hora.
+**Variable:** Enviado.el.
+```{r}
+str(encuesta$Enviado.el.)
+tail(encuesta$Enviado.el.)
+```
+
+Observemos que ahora el tipo de la variable es *POSIXct*. Este es un tipo especial de R que nos permitirá trabajar con la variables en formato fecha / hora, de manera similar a como el tipo *Date* nos permite trabajar con las variables en formato fecha.
 
 #### 2. Modificamos las variables que quedan de tipo CHARACTER a FACTOR.
 
@@ -134,6 +146,7 @@ typeof(encuesta$Q01_Genero)
 tail(encuesta$Q01_Genero, 10)
 barplot(table(encuesta$Q01_Genero), ylim = c(0, 80), main = "Género")
 ```
+
 Ahora realicemos la modificación de character a factor y visualicemos de nuevo el tipo de dato y algunos datos de la variables Q01_Genero
 
 ```{r}
@@ -181,6 +194,7 @@ encuesta <- encuesta %>% mutate(Q10_Estrato = factor(encuesta$Q10_Estrato,
 typeof(encuesta$Q10_Estrato)
 tail(encuesta$Q10_Estrato)
 table(encuesta$Q10_Estrato)
+dotchart(as.numeric(na.omit(encuesta$Q10_Estrato)))
 ```
 
 #### 4. Forzamos los datos de la variable Q08_PAPA para que queden dentro del intervalo [0.0,5.0]
@@ -250,16 +264,29 @@ dotchart(encuesta$Q05_Saber11)
 
 
 #### 6. Calculamos la edad de los encuestados de acuerdo a su fecha de nacimiento.
+
+En este punto usaremos una de las variables que modificamos anteriormente. En este caso usaremos la variable Q02_FechaNac para calcular la edad de cada uno de los encuestados, de acuerdo a la fehca de nacimiento que ellos ingresaron. Se debe tener en cuenta que para este cálculo, se usa la fecha 2021/06/30 como fecha referencia para el año en curso, pues es una fecha central que nos ayuda a equilibrar el tiempo que hay entre los encuestados que cumplen a comienzo de año y los que cumplen a final de año.
+
+También, definimos que un año tiene 365.25 días. Esto con el fin de tener en cuenta los años que son bisiestos.
+
+La edad quedará coo un número decimal, para mayor exactitud si tenemos en cuenta la fracción de un año que puede agregarse a la edad después de pasada la fecha del cumpleaños.
+
 ```{r}
 # Cálculo de la edad
 edad <- as.numeric(as.Date("2021-06-30") - encuesta$Q02_FechaNac)/365.25
+
+```{r}
+str(edad)
+```
+```{r}
+plot(edad,1:87,col="blue",pch = 19, ylab = "Registro", las=1, main = "Edad por orden de registro")
 ```
 
 
 
-
-
 #### 7. Etiquetamos las variables Q24_area y Q26_Divisor como "Correcto/Incorrecto."
+Esta modificación si es muy intuitiva. En esencia, creemos que al momento de compara esta variables con otras, nos aporta más el hecho de saber si fueron respondidas de forma Correcta o Incorrecta que el hecho de saber cuál fue exactamente la respuesta del encuestado.
+
 ```{r}
 ## Creamos la variable area que contiene la variable Q24_area etiquetada como "Correcto/Incorrecto"  
 area <- encuesta$Q24_area
