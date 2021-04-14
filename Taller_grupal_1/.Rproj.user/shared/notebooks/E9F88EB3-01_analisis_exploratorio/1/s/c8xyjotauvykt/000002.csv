@@ -1,0 +1,1 @@
+"0","plot(encuesta$Q10_Estrato,col=c(rainbow(6)), , ylim = c(0,50), ylab = ""Frecuencia"", xlab = ""Estrato"", las=1  ,main = ""Estrato"", na.rm = TRUE)"

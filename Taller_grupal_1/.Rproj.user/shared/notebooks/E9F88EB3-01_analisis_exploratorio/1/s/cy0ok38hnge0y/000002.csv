@@ -1,4 +1,0 @@
-"0","## Convertimos la variable Enviado.el. a tipo POSIXct (DATE TIME)"
-"0","encuesta <- encuesta %>% "
-"0","  mutate(Enviado.el. = as.POSIXct(strptime(Enviado.el., format = ""%d/%m/%Y %H:%M:%S"")))"
-"0",""

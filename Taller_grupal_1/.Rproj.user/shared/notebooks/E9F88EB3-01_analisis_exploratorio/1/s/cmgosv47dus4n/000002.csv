@@ -1,3 +1,0 @@
-"0","# with(encuesta, plot(Q27_PorcentDivisor))"
-"0","# lines(1:nrow(encuesta), rep(pt_p2[3], nrow(encuesta)), "
-"0","#       col = ""red"")"

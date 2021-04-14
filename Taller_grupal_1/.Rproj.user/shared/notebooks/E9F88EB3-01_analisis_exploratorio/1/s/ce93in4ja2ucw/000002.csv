@@ -1,4 +1,0 @@
-"0"," #encuesta_Estrato1 <- encuesta %>% "
-"0","  #filter(Q10_Estrato == ""bajo"")"
-"0"," #dotchart(encuesta_Estrato1$Q08_PAPA)"
-"0","#summary(encuesta_Estrato1$Q08_PAPA)"
