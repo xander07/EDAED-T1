@@ -608,7 +608,7 @@ Como se puede observar en la gráfica anterior, el supuesto del cual partimos er
 
 Si bien pudimos analizar la pregunta anterior dependiendo al estrato y la edad, ahora nos permitiremos realizar un análisis similar:
 
-#### 2.2 ¿El promedio del puntaje saber 11 es más alto dependiendo del estrato y el género?
+#### 2.3 ¿El promedio del puntaje saber 11 es más alto dependiendo del estrato y el género?
 
 Después de una discusión grupal se llegó a la conclusión que trabajaremos con la misma agrupación por estrato y categoría de géneros previamente establecida en la depuración, además de que no se tendrá en cuenta el género "Otro" ya que es un único dato, el cual no aporta mucho a este análisis. Además, el dato que está en la fila con estrato "NA" no será tenido en cuenta por la misma razón.
 
@@ -675,7 +675,7 @@ Conclusiones:
 Como podemos observar en la gráfica nuestra predicción fue errónea,podemos notar que el promedio de resultados saber 11 es muy similar para los hombres de estrato bajo y medio, además de que quienes sacaron mejor promedio en los resultados saber 11 fueron los hombres de estrato alto y no las mujeres de estrato medio como se esperaba, de hecho, fue este subgrupo quienes peor promedio de resultados saber 11 obtuvieron.
 
 
-#### 2.3 ¿Qué estrato de la carrera de estadística  tiene mejor PAPA?
+#### 2.4 ¿Qué estrato de la carrera de estadística  tiene mejor PAPA?
 
 La suposición que nos planteamos fue que los de estrato alto de la carrera de estadística tienen mejor PAPA que los de estrato bajo
 
@@ -725,7 +725,7 @@ La conclusión a la que se llegó es que la mayoría de estudiantes del curso de
 
 Se observa  que, el estrato medio  domina y cuenta con total de 25 estudiantes en cierta carrera, la cual es superior a las demás cantidades por estrato, también deducimos que el estrato 3 no esta en un sola carrera ,es decir se ubica en 5 carrerasde las 7 carreras en total lo cual es muy deducible saber que es el estrato en el que están la mayoría de estudiantes del curso ,ahora observamos que no están repartidos en todas las carreras ,pero lo mas a la vista que podemos sacar de la gráfica es que la carrera que tiene mayor cantidad de estudiantes en estrato 3 es estadística con 25 estudiantes  y después de estadística sigue ingeniería de sistemas con 15, con esto concluimos que la suposición que hicimos donde el estrato 3 es el estrato donde están la mayoría de estuantes se cumple y también averiguamos que ese estrato se ubica en la mayoría de carreras.
 
-#### 2.4 ¿Por cada carrera que edad tiene mejor puntaje saber 11?
+#### 2.5 ¿Por cada carrera que edad tiene mejor puntaje saber 11?
 
 Suponemos que los de 17 años tienen mejor puntaje saber 11 que los de  edades mayores (25 a 30 años) esto debido a que en la actualidad hay mas recursos y se emplean mejores métodos de estudio por lo cual es mas probable obtener un puntaje mejor. 
 
@@ -770,7 +770,7 @@ Lo primero que miramos en la gráfica es que la comparación se puede hacer solo
 respecto a “Industrial” y “matemáticas” observamos que la suposición hecha si se cumple también diríamos que esto es por los pocos datos que presentan estas 2 carreras ,claramente miramos en estas 2 carreras que los mejores puntajes lo obtuvieron estudiantes con menor edad y no los de mayor edad 
 concluimos que la suposición planteada coincidió con ciertas carreas no con todas al mirar ,los resultados obtenidos fueron muy diferentes. 
 
-#### 2.5 ¿El género que tiene mejor promedio PAPA depende del estrato en que este?
+#### 2.6 ¿El género que tiene mejor promedio PAPA depende del estrato en que este?
 
 Supuesto: La gran mayoría de mujeres tienden a ser mas dedicadas que los hombres, aunque de esto no depende el estrato, pero si puede que influya en el esfuerzo que se debe hacer para llegar a estos resultados, ya que a los de estrato bajos por falta de recursos y de apoyo muchas veces les toca más difícil.
 
@@ -782,6 +782,8 @@ Llegamos a esta conclusión realizando una evaluación del entorno. Donde se evi
 #gen_estr_papa <- select(gen_estr_papa, Q01_Genero, Q10_Estrato, Q08_PAPA)
 
 ```
+##pregunta 7
+
 
 ## Recomendaciones 
 
