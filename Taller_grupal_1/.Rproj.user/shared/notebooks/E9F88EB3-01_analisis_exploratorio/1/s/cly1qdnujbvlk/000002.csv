@@ -1,0 +1,1 @@
+"0","plot(edad,1:87,col=""blue"",pch = 19, ylab = ""Registro"", las=1, main = ""Edad por orden de registro"")"

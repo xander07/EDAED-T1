@@ -1,2 +1,0 @@
-"0","estratos_sin_na <- encuesta %>%"
-"0","  filter(Q10_Estrato == ""Medio"" | Q10_Estrato == ""Bajo"")"

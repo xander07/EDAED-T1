@@ -21,12 +21,11 @@ Son justamente esos datos recolectados, los que dan vida a este primer trabajo g
 
 ## Librerías y lectura de la BD
 
-Inicialmente, para este trabajo grupal usaremos dos librerías, la **"tidyverse"** y la **lattice**, estas nos facilitarán el manejo de las variables a través del código que realicemos en el desarrollo del trabajo.
+Inicialmente, para este trabajo grupal solo se usará la  la **"tidyverse"**, esta no facilita el manejo de las variables a través del código que realicemos en el desarrollo del trabajo.
 
 ```{r}
 ## Paquetes usados en el análisis.
 library(tidyverse)
-library(lattice)
 ```
 
 Por otra parte, la base de datos que nos fue asignada, viene en formato **CVS**, por lo que, usaremos la función **read.cvs())** que nos ofrece R para importar los datos y así poder trabajar de manera local.
@@ -417,11 +416,24 @@ En la gráfica podemos ver que si hay  diferencia entre los desempeños academic
 
 #### 1.3 ¿Qué género tiene mayor presencia en la carrera de estadística e ingeniería de sistemas?
 
-El supuesto del que se parte es que, en ambas carreras hay mayor presencia de los hombres. A través de la historia las mujeres han sido marginadas de la vida pública y también de lo que se llaman las ciencias duras. Por esta razón se cree, que esto continua pasando aunque en un menor porcentaje, a lo que pasaba anteriormente. 
+El supuesto del que se parte es que, en ambas carreras hay mayor presencia de los hombres. A través de la historia las mujeres han sido marginadas de la vida pública y también de lo que se llaman las ciencias duras. Por esta razón se cree, que esto continua pasando aunque en un menor porcentaje, a lo que pasaba anteriormente.
+
+Para responder a esta pregunta lo que se hizo fue filtrar 
 
 ```{r}
+gencar <- filter(encuesta_sist_estad, Q03_Carrera == "2 : Ingeniería de sistemas e informática" | Q03_Carrera == "3 : Estadística")
 
+gencar <- select(gencar,Q01_Genero,Q03_Carrera)
+
+gencar1 <- table(gencar)
+barplot(gencar1, beside = T, col = c(rainbow(3)), 
+        legend.text = row.names(gencar1), 
+        names= c("Ing sistemas", "Estadística"),
+        ylim = c(0,40),
+        xlim = c(0,10),
+        main = "Carrera VS Género")
 ```
+ 
 
 
 ### 2. Preguntas multivariadas
@@ -501,9 +513,9 @@ Predicción: Se espera que los jóvenes de estratos medios tengan un mejor prome
 gen_edad <- data.frame(encuesta$Q10_Estrato,saber11,edad,encuesta$Q01_Genero)
 
 #Aquí filtramos los datos ya que el NA no debe ser tenido en cuenta
-gen_edad <- filter(gen_edad, encuesta$Q10_Estrato == "Bajo" |
-                     encuesta$Q10_Estrato == "Medio" |
-                     encuesta$Q10_Estrato == "Alto")
+gen_edad <- filter(gen_edad, encuesta.Q10_Estrato == "Bajo" |
+                     encuesta.Q10_Estrato == "Medio" |
+                     encuesta.Q10_Estrato == "Alto")
 
 gen_edad$edad[(gen_edad$edad <= 25)] <- 1
 gen_edad$edad[(25 < gen_edad$edad & gen_edad$edad <= 32)] <- 2
@@ -516,49 +528,50 @@ gen_edad$edad[(gen_edad$edad == "1")] <- "Joven"
 gen_edad$edad[(gen_edad$edad == "2")] <- "Adulto Joven"
 gen_edad$edad[(gen_edad$edad == "3")] <- "Adulto"
 
+
 ```
 ## Análisis numérico
 ```{r} 
 #Seleccionamos los datos a analizar para la edad Joven
 
 promedio_joven <- filter(gen_edad,edad=="Joven")
-promedio_joven <- select(promedio_joven,encuesta$Q10_Estrato,saber11,edad)
+promedio_joven <- select(promedio_joven,encuesta.Q10_Estrato,saber11,edad)
 promedio_joven <- promedio_joven %>%
-  group_by(encuesta$Q10_Estrato)%>%
-  summarise(promedio=mean(saber11))
+  group_by(encuesta.Q10_Estrato)%>%
+  summarise(promedio=mean(saber11, na.rm = TRUE))
 promedio_joven
+
 ```
 
 ```{r}
-#Seleccionamos los datos a analizar para la edad Adulto Joven
 promedio_adjoven <- filter(gen_edad,edad=="Adulto Joven")
-promedio_adjoven <- select(promedio_adjoven,encuesta$Q10_Estrato,saber11,edad)
+promedio_adjoven <- select(promedio_adjoven,encuesta.Q10_Estrato,saber11,edad)
 promedio_adjoven <- promedio_adjoven %>%
-  group_by(encuesta$Q10_Estrato)%>%
-  summarise(promedio=mean(saber11))
+  group_by(encuesta.Q10_Estrato)%>%
+  summarise(promedio=mean(saber11, na.rm = TRUE))
 #Añadimos 0 en la columna saber 11 para los estratos que no contiene
 #Esto se hace para tener una matriz de la misma magnitud
-otros <- data.frame(encuesta$Q10_Estrato = c("Alto"),
+otros <- data.frame(encuesta.Q10_Estrato = c("Alto"),
                     promedio = c(0))
 promedio_adjoven <- rbind(promedio_adjoven,otros)
 promedio_adjoven
+
 ```
 
 ```{r}
 #Seleccionamos los datos a analizar para la edad Adulto
 promedio_adulto <- filter(gen_edad,edad=="Adulto")
-promedio_adulto <- select(promedio_adulto,encuesta$Q10_Estrato,saber11,edad)
+promedio_adulto <- select(promedio_adulto,encuesta.Q10_Estrato,saber11,edad)
 #Añadimos 0 en la columna saber 11 para los estratos que no contiene
 #Esto se hace para tener una matriz de la misma magnitud
-otro <- data.frame(encuesta$Q10_Estrato = c("Bajo","Alto"),
+otro <- data.frame(encuesta.Q10_Estrato = c("Bajo","Alto"),
                    saber11 = c(0,0),
                    edad=c("Adulto","Adulto"))
 promedio_adulto <- rbind(promedio_adulto,otro)
 promedio_adulto <- promedio_adulto %>%
-  group_by(encuesta$Q10_Estrato)%>%
-  summarise(promedio=mean(saber11))
+  group_by(encuesta.Q10_Estrato)%>%
+  summarise(promedio=mean(saber11, na.rm = TRUE))
 
-promedio_adulto
 ```
 ### Unificamos los tres subconjuntos anteriores para graficarlos juntos
 ```{r}
@@ -576,6 +589,7 @@ tabla_general <- rbind(c(promedio_joven$promedio),
 colnames(tabla_general) = c("Bajo","Medio","Alto")
 rownames(tabla_general) = c("Joven","Adulto Joven","Adulto")
 tabla_general
+
 ```
 ### Resultados gráficos
 ```{r}
@@ -604,13 +618,13 @@ Predicción: Se espera que las mujeres de estrato medio tengan un mejor promedio
 ```{r}
 #Seleccionamos los datos de acuerdo al género Femenino
 promedio_mujer <- filter(gen_edad,encuesta.Q01_Genero =="Femenino")
-promedio_mujer <- select(promedio_mujer,estrato_etiquetado,saber11)
+promedio_mujer <- select(promedio_mujer,encuesta.Q10_Estrato,saber11)
 promedio_mujer <- promedio_mujer %>%
-group_by(estrato_etiquetado)%>%
-  summarise(promedio=mean(saber11))
+group_by(encuesta.Q10_Estrato)%>%
+  summarise(promedio=mean(saber11, na.rm = TRUE))
 #Añadimos 0 al promedio de mujeres en estrato Alto para que todos los dataframes
 #Tengan la misma dimensión
-ot <- data.frame(estrato_etiquetado = c("Alto"),
+ot <- data.frame(encuesta.Q10_Estrato = c("Alto"),
                  promedio = c(0))
 promedio_mujer <- rbind(promedio_mujer,ot)
 promedio_mujer
@@ -619,9 +633,9 @@ promedio_mujer
 ```{r}
 #Seleccionamos los datos de acuerdo al género Masculino
 promedio_hombre <- filter(gen_edad,encuesta.Q01_Genero =="Masculino")
-promedio_hombre <- select(promedio_hombre,estrato_etiquetado,saber11)
+promedio_hombre <- select(promedio_hombre,encuesta.Q10_Estrato,saber11)
 promedio_hombre <- promedio_hombre %>%
-group_by(estrato_etiquetado)%>%
+group_by(encuesta.Q10_Estrato)%>%
   summarise(promedio=mean(saber11))
 promedio_hombre
 
@@ -641,6 +655,7 @@ tabla_generos <- rbind(c(promedio_hombre$promedio),
 colnames(tabla_generos) = c("Bajo","Medio","Alto")
 rownames(tabla_generos) = c("Hombre","Mujer")
 tabla_generos
+
 ```
 ## Resultados Gráficos
 
@@ -653,6 +668,7 @@ barplot(tabla_generos, beside = T,
         main="SABER11xGENEROxESTRATO",
         xlab = "Estrato Socioeconómico",
         ylab= "Promedio Saber 11")
+
 ```
 Conclusiones:
 
@@ -699,32 +715,8 @@ p_pre2 <- encuesta %>%
   group_by(Q10_Estrato, Q03_Carrera) %>% 
   summarise(Cantidad = n())
 
-xyplot(Cantidad ~ Q10_Estrato | Q03_Carrera, data = p_pre2,  pch=5, cex = 0.5, main = "Carrera")
 
-```
-### Grafica Exploratoria
-
-```{r}
-p_pre2 <- encuesta %>%
-  select(Q03_Carrera, Q08_PAPA, Q10_Estrato, Respuesta, Enviado.el.) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"4 : 3","3")) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"3 : 2","2")) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"2 : 1","1")) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"5 : 4","4")) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"6 : 5","5")) %>% 
-  mutate(Q10_Estrato = str_replace(Q10_Estrato,"8 : No se conoce","N")) %>%
-  mutate(Q08_PAPA = str_replace(Q08_PAPA,"45.0","4.5")) %>%
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"2 : Ingeniería de sistemas e informática","I_Sistemas")) %>%
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"5 : Ingeniería física","I_Física")) %>% 
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"1 : Matemáticas","Matematicas")) %>% 
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"3 : Estadística","Estadística")) %>% 
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"6 : Ingeniería industrial","I_Indus")) %>% 
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"7 : Otra","otra")) %>%  
-  mutate(Q03_Carrera= str_replace(Q03_Carrera,"4 : Ingeniería administrativa","I_Admi")) %>% 
-  group_by(Q10_Estrato, Q03_Carrera) %>% 
-  summarise(Cantidad = n())
-
-xyplot(Cantidad ~ Q10_Estrato | Q03_Carrera, data = p_pre2,  pch=5, cex = 0.5, main = "Carrera")
+coplot(p_pre2$Q10_Estrato ~ p_pre2$Cantidad | p_pre2$Q03_Carrera, columns = 7, cex=1)
 
 ```
 Conclusion:
@@ -785,9 +777,9 @@ Supuesto: La gran mayoría de mujeres tienden a ser mas dedicadas que los hombre
 Llegamos a esta conclusión realizando una evaluación del entorno. Donde se evidencia que una persona al tener todos los recursos no se esfuerza por conseguir mas y por esto el promedio PAPA puede ser mas bajo. Contrario a lo que con personas de pocos recursos, se percibe mayor esfuerzo academicamente, esto con el propósito de superarsen.
 
 ```{r}
-gen_estr_papa <- na.exclude(encuesta)
+#gen_estr_papa <- na.exclude(encuesta)
 
-gen_estr_papa <- select(gen_estr_papa, Q01_Genero, Q10_Estrato, Q08_PAPA)
+#gen_estr_papa <- select(gen_estr_papa, Q01_Genero, Q10_Estrato, Q08_PAPA)
 
 ```
 
@@ -797,7 +789,8 @@ gen_estr_papa <- select(gen_estr_papa, Q01_Genero, Q10_Estrato, Q08_PAPA)
 
 2.Preguntar directamente por la edad del estudiante y no por la fecha de nacimiento, esto posibilita mejor comprensión.
 
-3. Usar mas variedad de códigos, pues muchos de los usados por el profesor presentaban errores a la hora de correr el shunck. 
+
+ 
 
 
 
